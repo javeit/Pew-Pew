@@ -9,23 +9,41 @@ public class FollowPathScript : MonoBehaviour {
 	public PlayerController player;
 
 	private float time;
+	private bool restart;
+	private bool onSecondPath;
 
 	void Start () {
-		time = 2;
+		time = pathTime1 + pathTime2;
+		iTween.MoveTo(gameObject, iTween.Hash("path", iTweenPath.GetPath("PlayerPath1"), "time", pathTime1, "easetype", iTween.EaseType.linear, "orientToPath",true));
 		player = GetComponentInChildren<PlayerController> ();
+		restart = false;
+		onSecondPath = false;
 	}
 
 	void Update(){
-		time -= Time.deltaTime;
-
-		if (time <= 0) {
-			if (player.transform.localPosition.x < 0) {
-				iTween.MoveTo(gameObject, iTween.Hash("path", iTweenPath.GetPath("PlayerPath2"), "time", pathTime2, "easetype", iTween.EaseType.linear, "orientToPath",true));
-				time = pathTime2;
-			} else {
+		if (restart) {
+			if (time <= 0) {
 				iTween.MoveTo(gameObject, iTween.Hash("path", iTweenPath.GetPath("PlayerPath1"), "time", pathTime1, "easetype", iTween.EaseType.linear, "orientToPath",true));
-				time = pathTime1;
+				restart = false;
+				time = pathTime1 + pathTime2;
 			}
+		}else{
+			if ((time < pathTime2 + 1) && !onSecondPath) {
+				if (player.transform.localPosition.x > 0) {
+					iTween.MoveTo (gameObject, iTween.Hash ("path", iTweenPath.GetPath ("PlayerPath2"), "time", pathTime2, "easetype", iTween.EaseType.linear, "orientToPath", true));
+				} else {
+					iTween.MoveTo (gameObject, iTween.Hash ("path", iTweenPath.GetPath ("PlayerPath3"), "time", pathTime2, "easetype", iTween.EaseType.linear, "orientToPath", true));
+				}
+				onSecondPath = true;
+			}
+			if (time <= 0) {
+				iTween.MoveTo (gameObject, iTween.Hash ("path", iTweenPath.GetPath ("ResetPath"), "time", 2, "easetype", iTween.EaseType.linear, "orientToPath", true));
+				time = 2;
+				restart = true;
+				onSecondPath = false;
+			}
+			Debug.Log ("Time: " + time);
 		}
+		time -= Time.deltaTime;
 	}
 }
