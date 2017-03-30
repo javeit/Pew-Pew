@@ -42,7 +42,7 @@ public class FollowPathScript : MonoBehaviour {
 				restart = true;
 				onSecondPath = false;
 			}
-			Debug.Log ("Time: " + time);
+			//Debug.Log ("Time: " + time);
 		}
 		time -= Time.deltaTime;
 	}
