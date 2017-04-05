@@ -12,7 +12,7 @@ public class AimObjectController : MonoBehaviour {
 	// Update is called once per frame
 	void FixedUpdate () {
 
-		Vector3 temp = Camera.main.ScreenToWorldPoint (new Vector3 (Input.mousePosition.x, Input.mousePosition.y, 18));
+		Vector3 temp = Camera.main.ScreenToWorldPoint (new Vector3 (Input.mousePosition.x, Input.mousePosition.y, 39));
 		transform.position = temp;
 
 		/*if(transform.localPosition.x > 6)
