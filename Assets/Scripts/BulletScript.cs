@@ -11,11 +11,13 @@ public class BulletScript : MonoBehaviour {
 
 	void Start(){
 		fireDirection = transform.forward.normalized;
-		GetComponent<Rigidbody> ().velocity += fireDirection * moveSpeed;
+		//GetComponent<Rigidbody> ().velocity = fireDirection * moveSpeed;
 		//transform.parent = null;
 	}
 
 	void Update () {
+		transform.position += transform.forward.normalized * moveSpeed;
+
 		if (liveTime < 0) {
 			Destroy (gameObject);
 		}
