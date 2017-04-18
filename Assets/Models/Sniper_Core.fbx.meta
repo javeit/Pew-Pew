@@ -1,106 +1,80 @@
 fileFormatVersion: 2
-guid: b4698cd354d7df543a98968e23990bd2
-timeCreated: 1491598294
+guid: fa482209af1cd8440bd89e4661a45fd5
+timeCreated: 1492510243
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
     100000: Cube
-    100002: Cylinder
-    100004: Cylinder.001
-    100006: Cylinder.002
-    100008: Cylinder.003
-    100010: Cylinder.004
-    100012: Cylinder.005
-    100014: Cylinder.006
-    100016: Cylinder.009
-    100018: Cylinder.010
-    100020: Cylinder.011
-    100022: Cylinder.012
-    100024: Cylinder.013
-    100026: Cylinder.014
-    100028: Cylinder.015
-    100030: Cylinder.016
-    100032: Cylinder_MeshPart0
-    100034: Cylinder_MeshPart1
-    100036: Head Evil
-    100038: Head Evil.001
-    100040: //RootNode
-    100042: Torus.000
-    100044: Torus.001
-    100046: Torus.002
-    100048: Torus.003
+    100002: Cylinder.009
+    100004: Cylinder.010
+    100006: Cylinder.011
+    100008: Cylinder.012
+    100010: Cylinder.013
+    100012: Cylinder.014
+    100014: Cylinder.015
+    100016: Cylinder.016
+    100018: Cylinder.017
+    100020: Cylinder.023
+    100022: Head Evil
+    100024: Head Evil.001
+    100026: //RootNode
+    100028: Torus.000
+    100030: Torus.001
+    100032: Torus.002
+    100034: Torus.003
     400000: Cube
-    400002: Cylinder
-    400004: Cylinder.001
-    400006: Cylinder.002
-    400008: Cylinder.003
-    400010: Cylinder.004
-    400012: Cylinder.005
-    400014: Cylinder.006
-    400016: Cylinder.009
-    400018: Cylinder.010
-    400020: Cylinder.011
-    400022: Cylinder.012
-    400024: Cylinder.013
-    400026: Cylinder.014
-    400028: Cylinder.015
-    400030: Cylinder.016
-    400032: Cylinder_MeshPart0
-    400034: Cylinder_MeshPart1
-    400036: Head Evil
-    400038: Head Evil.001
-    400040: //RootNode
-    400042: Torus.000
-    400044: Torus.001
-    400046: Torus.002
-    400048: Torus.003
+    400002: Cylinder.009
+    400004: Cylinder.010
+    400006: Cylinder.011
+    400008: Cylinder.012
+    400010: Cylinder.013
+    400012: Cylinder.014
+    400014: Cylinder.015
+    400016: Cylinder.016
+    400018: Cylinder.017
+    400020: Cylinder.023
+    400022: Head Evil
+    400024: Head Evil.001
+    400026: //RootNode
+    400028: Torus.000
+    400030: Torus.001
+    400032: Torus.002
+    400034: Torus.003
     2300000: Cube
-    2300002: Cylinder.001
-    2300004: Cylinder.002
-    2300006: Cylinder.003
-    2300008: Cylinder.004
-    2300010: Cylinder.005
-    2300012: Cylinder.006
-    2300014: Cylinder.009
-    2300016: Cylinder.010
-    2300018: Cylinder.011
-    2300020: Cylinder.012
-    2300022: Cylinder.013
-    2300024: Cylinder.014
-    2300026: Cylinder.015
-    2300028: Cylinder.016
-    2300030: Cylinder_MeshPart0
-    2300032: Cylinder_MeshPart1
-    2300034: Head Evil
-    2300036: Head Evil.001
-    2300038: Torus.000
-    2300040: Torus.001
-    2300042: Torus.002
-    2300044: Torus.003
+    2300002: Cylinder.009
+    2300004: Cylinder.010
+    2300006: Cylinder.011
+    2300008: Cylinder.012
+    2300010: Cylinder.013
+    2300012: Cylinder.014
+    2300014: Cylinder.015
+    2300016: Cylinder.016
+    2300018: Cylinder.017
+    2300020: Cylinder.023
+    2300022: Head Evil
+    2300024: Head Evil.001
+    2300026: Torus.000
+    2300028: Torus.001
+    2300030: Torus.002
+    2300032: Torus.003
     3300000: Cube
-    3300002: Cylinder.001
-    3300004: Cylinder.002
-    3300006: Cylinder.003
-    3300008: Cylinder.004
-    3300010: Cylinder.005
-    3300012: Cylinder.006
-    3300014: Cylinder.009
-    3300016: Cylinder.010
-    3300018: Cylinder.011
-    3300020: Cylinder.012
-    3300022: Cylinder.013
-    3300024: Cylinder.014
-    3300026: Cylinder.015
-    3300028: Cylinder.016
-    3300030: Cylinder_MeshPart0
-    3300032: Cylinder_MeshPart1
-    3300034: Head Evil
-    3300036: Head Evil.001
-    3300038: Torus.000
-    3300040: Torus.001
-    3300042: Torus.002
-    3300044: Torus.003
+    3300002: Cylinder.009
+    3300004: Cylinder.010
+    3300006: Cylinder.011
+    3300008: Cylinder.012
+    3300010: Cylinder.013
+    3300012: Cylinder.014
+    3300014: Cylinder.015
+    3300016: Cylinder.016
+    3300018: Cylinder.017
+    3300020: Cylinder.023
+    3300022: Head Evil
+    3300024: Head Evil.001
+    3300026: Torus.000
+    3300028: Torus.001
+    3300030: Torus.002
+    3300032: Torus.003
     4300000: Cylinder.016
     4300002: Cylinder.013
     4300004: Cylinder.012
@@ -112,18 +86,12 @@ ModelImporter:
     4300016: Torus.002
     4300018: Torus.000
     4300020: Torus.001
-    4300022: Cylinder.006
-    4300024: Cylinder.005
-    4300026: Cylinder.004
-    4300028: Cylinder.003
-    4300030: Cylinder.002
-    4300032: Cylinder_MeshPart0
-    4300034: Cylinder_MeshPart1
-    4300036: Cylinder.001
-    4300038: Cylinder.009
-    4300040: Cube
-    4300042: Cylinder.014
-    4300044: Cylinder.015
+    4300022: Cylinder.009
+    4300024: Cube
+    4300026: Cylinder.014
+    4300028: Cylinder.015
+    4300030: Cylinder.017
+    4300032: Cylinder.023
   materials:
     importMaterials: 1
     materialName: 0
