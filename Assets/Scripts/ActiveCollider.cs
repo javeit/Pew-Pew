@@ -9,7 +9,7 @@ public class ActiveCollider : MonoBehaviour {
 	public EnemyBehavior enemy;
 	// Use this for initialization
 	void Start () {
-		
+
 	}
 	
 	// Update is called once per frame
@@ -20,7 +20,7 @@ public class ActiveCollider : MonoBehaviour {
 	void OnTriggerEnter(Collider other)
 	{
 		if(other.CompareTag("Player"))
-			enemy.Activate ();
+            enemy.Activate ();
 		transform.parent = null;
 	}
 }
