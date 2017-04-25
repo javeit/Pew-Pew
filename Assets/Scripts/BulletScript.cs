@@ -23,4 +23,9 @@ public class BulletScript : MonoBehaviour {
 		}
 		liveTime -= Time.deltaTime;
 	}
+		
+	void OnCollisionEnter(Collision col){
+		Destroy (gameObject);
+	}
+
 }

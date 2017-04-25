@@ -4,12 +4,10 @@ using UnityEngine;
 
 public class AimObjectController : MonoBehaviour {
 
-	// Use this for initialization
 	void Start () {
 		
 	}
-	
-	// Update is called once per frame
+
 	void FixedUpdate () {
 
 		Vector3 temp = Camera.main.ScreenToWorldPoint (new Vector3 (Input.mousePosition.x, Input.mousePosition.y, 39));
