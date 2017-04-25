@@ -30,7 +30,7 @@ public class FollowPathScript : MonoBehaviour {
 		}else{
 			if ((time < pathTime2 + 1) && !onSecondPath) {
 				if (player.transform.localPosition.x > 0) {
-					iTween.MoveTo (gameObject, iTween.Hash ("path", iTweenPath.GetPath ("PlayerPath2"), "time", pathTime2, "easetype", iTween.EaseType.linear, "orientToPath", true));
+					iTween.MoveTo (gameObject, iTween.Hash ("path", iTweenPath.GetPath ("PlayerPath2"), "time", pathTime2, "easetype", iTween.EaseType.linear, "orientToPath", true, "lookTime", 5));
 				} else {
 					iTween.MoveTo (gameObject, iTween.Hash ("path", iTweenPath.GetPath ("PlayerPath3"), "time", pathTime2, "easetype", iTween.EaseType.linear, "orientToPath", true));
 				}
