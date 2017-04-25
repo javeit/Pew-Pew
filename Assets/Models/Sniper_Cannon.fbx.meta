@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: fd51dde86d6d4a748ba8d0a25dc65e78
-timeCreated: 1491598350
+timeCreated: 1492509914
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
@@ -10,33 +10,38 @@ ModelImporter:
     100004: Cylinder.007
     100006: Cylinder.008
     100008: //RootNode
-    100010: Torus.004
-    100012: Torus.005
+    100010: Torus
+    100012: Torus.004
+    100014: Torus.005
     400000: Cube.001
     400002: Cube.002
     400004: Cylinder.007
     400006: Cylinder.008
     400008: //RootNode
-    400010: Torus.004
-    400012: Torus.005
+    400010: Torus
+    400012: Torus.004
+    400014: Torus.005
     2300000: Cube.001
     2300002: Cube.002
     2300004: Cylinder.007
     2300006: Cylinder.008
-    2300008: Torus.004
-    2300010: Torus.005
+    2300008: Torus
+    2300010: Torus.004
+    2300012: Torus.005
     3300000: Cube.001
     3300002: Cube.002
     3300004: Cylinder.007
     3300006: Cylinder.008
-    3300008: Torus.004
-    3300010: Torus.005
+    3300008: Torus
+    3300010: Torus.004
+    3300012: Torus.005
     4300000: Cube.001
     4300002: Cube.002
     4300004: Cylinder.007
     4300006: Cylinder.008
-    4300008: Torus.004
-    4300010: Torus.005
+    4300008: Torus
+    4300010: Torus.004
+    4300012: Torus.005
   materials:
     importMaterials: 1
     materialName: 0
