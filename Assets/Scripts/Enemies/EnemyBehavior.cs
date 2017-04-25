@@ -3,34 +3,38 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyBehavior : MonoBehaviour {
-	public PlayerController player;
+	GameObject player;
 	string State;
 	GameObject path;
 	Vector3 goal;
-	bool moving;
 	int timer;
 	int moveSide;
+    Vector3 rand;
 	// Use this for initialization
 
 
 	void Start () {
 		path= GameObject.FindGameObjectWithTag ("MainCamera");
+        player = GameObject.FindGameObjectWithTag("Player");
 		State= "IDLE";
-		moving = false;
+
 		timer = 0;
 		moveSide = 0;
+        rand = new Vector3(Random.Range(-6f,6f), Random.Range(-25f, 25f), Random.Range(-6f, 6f));
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		
 		if (State.Equals("ACTIVE")) {
-			transform.parent = path.transform;
 			print ("ACTIVE");
-			goal = path.transform.position + (path.transform.forward*50);
-			if (!moving)
-				iTween.MoveTo (gameObject, iTween.Hash ("position", goal, "time", .2f,"oncomplete", "parent"));
-			moving = true;
+
+            iTween.LookUpdate(gameObject, iTween.Hash("looktarget", goal, "speed", 1.0f));
+            goal = path.transform.position + (path.transform.forward*50) + rand;
+            
+             iTween.MoveUpdate(gameObject, iTween.Hash("position", goal, "time", 3.2f));
+            if (Mathf.Abs(transform.position.x - goal.x) < 2 && Mathf.Abs(transform.position.y - goal.y) < 2 && Mathf.Abs(transform.position.z - goal.z) < 2)
+                parent();
 		
 		
 		}
@@ -62,12 +66,12 @@ public class EnemyBehavior : MonoBehaviour {
 	public void parent()
 	{
 		State = "ATTACK";
-		//transform.parent = path.transform;
 	}
 
 	public void Activate()
 	{
-		State = "ACTIVE";
+        transform.parent = path.transform;
+        State = "ACTIVE";
 	}
 
 
