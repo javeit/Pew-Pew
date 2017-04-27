@@ -57,6 +57,7 @@ public class HUDScript : MonoBehaviour {
 	
 	void PauseGame()
 	{
+		Debug.Log("GOT");
 		if(paused)
 		{
 			paused = false;
@@ -64,6 +65,7 @@ public class HUDScript : MonoBehaviour {
 		}
 		else{
 			paused = true;
+			
 			Time.timeScale = 0.0F;
 		}
 		Debug.Log("Pause");
