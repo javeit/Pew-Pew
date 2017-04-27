@@ -6,11 +6,19 @@ public class PlayerController : MonoBehaviour {
 
 	public float maxSpeed;
 	public bool wasHit;
+	public HUDScript hudScript;
 
 	private Rigidbody rigidBody;
 
 	void Start () {
 		rigidBody = GetComponent<Rigidbody> ();
+	} 
+	
+	//I added this for testing by triggering wasHit in inspector. Idk if this will 
+	//be needed in the end.
+	void Update ()
+	{
+		if (wasHit == true){wasHit = false;hudScript.decrimentHearts();}
 	}
 
 	void FixedUpdate () {
