@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyKilled : MonoBehaviour {
+	public bool dropPowerUp;
+
+	public GameObject powerDrop;
 	
 	// Update is called once per frame
 	void Update () {
@@ -10,6 +13,10 @@ public class EnemyKilled : MonoBehaviour {
 	}
 	public void afterDeath() {
 		StartCoroutine (wait2secs ());
+		if (dropPowerUp) {
+			GameObject powerCoin = Instantiate (powerDrop, gameObject.transform);
+			powerCoin.transform.localPosition = new Vector3(0f,0f,0f);
+		}
 	}
 
 	IEnumerator wait2secs() {
