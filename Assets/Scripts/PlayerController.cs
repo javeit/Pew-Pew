@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour {
 
 	public float maxSpeed;
+	public bool wasHit;
 
 	private Rigidbody rigidBody;
 
@@ -27,7 +28,7 @@ public class PlayerController : MonoBehaviour {
 		rigidBody.MovePosition (transform.position + (transform.up * verticalMoveSpeed * Time.fixedDeltaTime) + (transform.right * horizontalMoveSpeed * Time.fixedDeltaTime));
 	}
 
-	/*void OnCollisionEnter(Collision col){
-		Destroy (gameObject);
-	}*/
+	void OnCollisionEnter(Collision col){
+		wasHit = true;
+	}
 }
