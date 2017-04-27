@@ -7,10 +7,7 @@ public class BulletScript : MonoBehaviour {
 	public float moveSpeed;
 	public float liveTime;
 
-	private Vector3 fireDirection;
-
 	void Start(){
-		fireDirection = transform.forward.normalized;
 		//GetComponent<Rigidbody> ().velocity = fireDirection * moveSpeed;
 		//transform.parent = null;
 	}
