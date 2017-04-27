@@ -10,7 +10,7 @@ public class AimObjectController : MonoBehaviour {
 
 	void FixedUpdate () {
 
-		Vector3 temp = Camera.main.ScreenToWorldPoint (new Vector3 (Input.mousePosition.x, Input.mousePosition.y, 39));
+		Vector3 temp = Camera.main.ScreenToWorldPoint (new Vector3 (Input.mousePosition.x, Input.mousePosition.y, 40));
 		transform.position = temp;
 
 		/*if(transform.localPosition.x > 6)
