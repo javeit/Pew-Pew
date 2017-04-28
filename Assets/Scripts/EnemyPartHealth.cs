@@ -12,6 +12,9 @@ public class EnemyPartHealth : MonoBehaviour {
 	//ship death script
 	public EnemyKilled deathScript;
 
+	//capitalShip PlateRemoval Script
+	public Capital_ArmorBreak peelScript;
+
 	//Amount of health to take from parent when this part is destroyed
 	public int HPfromParent;
 
@@ -58,6 +61,11 @@ public class EnemyPartHealth : MonoBehaviour {
 		Destroy (gameObject);
 
 		Explosion.Play(true);
+
+		//deal with capital ship parts special case
+		if (peelScript != null) {
+			peelScript.breakArmor ();
+		}
 
 		if (partParent != null) { //if part has a parent, subtract health from it
 			EnemyPartHealth parentScript = partParent.GetComponent<EnemyPartHealth> ();

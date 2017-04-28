@@ -28,10 +28,6 @@ public class Capital_ArmorBreak : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		//TEMPORARY TRIGGER
-		if (Input.GetButtonDown ("Fire1")) {
-			breakArmor ();
-		}
 		//float the dead plate away from the ship
 		if (isDead) {
 			//Rotate
@@ -43,7 +39,7 @@ public class Capital_ArmorBreak : MonoBehaviour {
 		}
 	}
 
-	void breakArmor() {
+	public void breakArmor() {
 		//kill all the babies
 		foreach (Transform child in transform) {
 			GameObject.Destroy (child.gameObject);
