@@ -42,8 +42,6 @@ public class PlayerMissleScript : MonoBehaviour {
 			} else {
 				timeToFire -= Time.deltaTime;
 			}
-		} else if(timeToFire > 0){
-			timeToFire = 0;
 		}
 	}
 }
