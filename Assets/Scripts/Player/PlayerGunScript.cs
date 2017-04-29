@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerGunScript: MonoBehaviour {
+public class PlayerGunScript : MonoBehaviour {
 
 	public Transform target;
 	public GameObject bulletPrefab;

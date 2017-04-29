@@ -7,7 +7,7 @@ public class DestroyOnOneHit : MonoBehaviour {
 	void OnCollisionEnter(Collision col){
 		//Debug.Log ("triggered");
 		if (col.gameObject.tag == "Weapon") {
-			//Debug.Log ("laser touched");
+			//Debug.Log ("enemy hit");
 			Destroy (gameObject);
 		}
 	}
