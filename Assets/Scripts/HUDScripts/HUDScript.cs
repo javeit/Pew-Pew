@@ -9,7 +9,6 @@ public class HUDScript : MonoBehaviour {
 	public GameObject[] hearts;
 	public GameObject[] lives;
 	public GameObject[] weaponBoxes;
-	public GameObject[] shipModels;
 	public GameObject dialogueBox;
 	private GameObject pauseButtonGo;
 	private bool paused = false;
@@ -24,10 +23,12 @@ public class HUDScript : MonoBehaviour {
 	private Vector3 target;
 	private Vector3 startPosition;
 	private bool sent = false;
+	private GameObject[] shipModels;
 	float timeToReachTarget;
 	// Use this for initialization
 	void Start () {
 		int shipSelect = PlayerPrefs.GetInt("ShipSelect");
+		shipModels = GameObject.FindGameObjectsWithTag("shipModels");
 		if(shipSelect == 0)
 		{
 			shipModels[1].SetActive(false);
