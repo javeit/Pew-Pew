@@ -19,7 +19,7 @@ public class PlayerController : MonoBehaviour {
 	//be needed in the end.
 	void Update ()
 	{
-		if (wasHit == true){wasHit = false;hudScript.decrimentHearts();}
+		if (wasHit == true){wasHit = false;Debug.Log ("wasHit");hudScript.decrimentHearts();}
 	}
 
 	void FixedUpdate () {
