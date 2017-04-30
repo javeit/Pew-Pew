@@ -6,12 +6,13 @@ public class PlayerController : MonoBehaviour {
 
 	public float maxSpeed;
 	public bool wasHit;
-	public HUDScript hudScript;
 
+	private HUDScript hudScript;
 	private Rigidbody rigidBody;
 
 	void Start () {
 		rigidBody = GetComponent<Rigidbody> ();
+		hudScript = GameObject.Find("CanvasMain").GetComponent<HUDScript>();
 	} 
 	
 	//I added this for testing by triggering wasHit in inspector. Idk if this will 

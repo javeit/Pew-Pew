@@ -8,7 +8,7 @@ public class PlayerWeaponController : MonoBehaviour {
 
 	private PlayerGunScript gun;
 	private PlayerMissleScript missile;
-	public HUDScript hudScript;
+	private HUDScript hudScript;
 	private bool OSX;
 
 	void Start () { 
@@ -21,6 +21,7 @@ public class PlayerWeaponController : MonoBehaviour {
 		}
 		gun = GetComponent<PlayerGunScript> ();
 		missile = GetComponent<PlayerMissleScript> ();
+		hudScript = GameObject.Find("CanvasMain").GetComponent<HUDScript>();
 	}
 
 	void Update () {

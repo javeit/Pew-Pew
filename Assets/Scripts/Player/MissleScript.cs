@@ -24,7 +24,7 @@ public class MissleScript : MonoBehaviour {
 			}
 			liveTime -= Time.deltaTime;
 		} else {
-			Destroy (gameObject);
+			transform.position += transform.forward;
 		}
 	}
 

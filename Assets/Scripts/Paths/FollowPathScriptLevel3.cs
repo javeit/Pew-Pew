@@ -10,11 +10,13 @@ public class FollowPathScriptLevel3 : MonoBehaviour {
 	private float time;
 	private bool inTrench;
 	private bool onReset;
+	private bool bossExposed;
 
 	void Start () {
 		iTween.MoveTo(gameObject, iTween.Hash("path", iTweenPath.GetPath("Trench Run"), "time", trenchRunTime, "easetype", iTween.EaseType.linear, "orientToPath",true));
 		inTrench = true;
 		onReset = false;
+		bossExposed = false;
 		time = trenchRunTime;
 	}
 

@@ -8,13 +8,15 @@ public class PlayerGunScript : MonoBehaviour {
 	public GameObject bulletPrefab;
 	public Transform pathObject;
 	public float timeBetweenShots;
-	public HUDScript hudScript;
+
+	private HUDScript hudScript;
 	private float timeToFire;
 	private AudioSource shotSound;
 
 	void Start () {
 		timeToFire = 0;
-		shotSound = this.GetComponent<AudioSource>();		
+		shotSound = this.GetComponent<AudioSource>();
+		hudScript = GameObject.Find("CanvasMain").GetComponent<HUDScript>();
 	}
 
 	void Update () {
