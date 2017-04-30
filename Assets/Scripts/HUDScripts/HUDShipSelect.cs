@@ -6,33 +6,62 @@ using UnityEngine.SceneManagement;
 
 public class HUDShipSelect : MonoBehaviour {
 
-	public Button[] buttons;
+	Button[] buttons;
+	public Button startButton;
+	public Button backButton;
+	public LRSelectBoxScript selectScript;
+	public GameObject startSelectBox;
+	public GameObject backSelectBox;
+	bool startSelected = false;
 	// Use this for initialization
 	void Start () {
 		buttons = this.gameObject.transform.GetChild(0).GetComponentsInChildren<Button>();
-		buttons[0].onClick.AddListener(SetCrystal);
-		buttons[1].onClick.AddListener(SetStarfighter);
-		buttons[2].onClick.AddListener(SetSwordfish);
+		startButton.onClick.AddListener(StartGame);
+		backButton.onClick.AddListener(GoBack);
 	}
 	
 	// Update is called once per frame
 	void Update () {
+		if(Input.GetKeyDown("down") && startSelected == false)
+		{
+			StartSelected();
+		}
+		else if(Input.GetKeyDown("up") && startSelected)
+		{
+			StartDeselected();
+		}
+		else if(Input.GetKeyDown("return") && startSelected)
+		{
+			StartGame();
+		}
 		
 	}
 	
-	void SetCrystal()
+	void StartGame()
 	{
-		PlayerPrefs.SetInt("ShipSelect", 0);
+		PlayerPrefs.SetInt("ShipSelect", selectScript.getIndex());
 		SceneManager.LoadScene ("Test Scene",LoadSceneMode.Single);
 	}
-	void SetStarfighter()
+	void GoBack()
 	{
-		PlayerPrefs.SetInt("ShipSelect", 1);
-		SceneManager.LoadScene ("Test Scene",LoadSceneMode.Single);
+		SceneManager.LoadScene ("Main Menu",LoadSceneMode.Single);
 	}
-	void SetSwordfish()
+	public void StartSelected()
 	{
-		PlayerPrefs.SetInt("ShipSelect", 2);
-		SceneManager.LoadScene ("Test Scene",LoadSceneMode.Single);
+		startSelectBox.SetActive(true);
+		startSelected = true;
+	}
+	public void StartDeselected()
+	{
+		startSelectBox.SetActive(false);
+		startSelected = false;
+	}
+	public void BackSelected()
+	{
+		backSelectBox.SetActive(true);
+	}
+	public void BackDeselected()
+	{
+		backSelectBox.SetActive(false);
 	}
 }

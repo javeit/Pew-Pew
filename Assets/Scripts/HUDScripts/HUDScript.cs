@@ -27,10 +27,11 @@ public class HUDScript : MonoBehaviour {
 	private Vector3 target;
 	private Vector3 startPosition;
 	private bool sent = false;
-	public GameObject[] shipModels;
+	private GameObject[] shipModels;
 	float timeToReachTarget;
 	// Use this for initialization
 	void Start () {
+		Time.timeScale = 1.0F;
 		int shipSelect = PlayerPrefs.GetInt("ShipSelect");
 		shipModels = GameObject.FindGameObjectsWithTag("shipModels");
 		if(shipSelect == 2)
