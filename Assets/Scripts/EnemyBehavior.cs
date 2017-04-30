@@ -22,7 +22,7 @@ public class EnemyBehavior : MonoBehaviour
 
         timer = 0;
         moveSide = 0;
-        rand = new Vector3(Random.Range(-6f, 6f), Random.Range(-25f, 25f), Random.Range(-6f, 6f));
+        rand = new Vector3(Random.Range(-7f, 7f), Random.Range(-20f, 20f), Random.Range(-7f, 7f));
         
     }
 
@@ -65,7 +65,9 @@ public class EnemyBehavior : MonoBehaviour
         else if (State.Equals("DISABLE"))
         {
             //eventually deparents the enemy
-            transform.parent = null;
+            goal = transform.position - (path.transform.forward * 30);
+
+            iTween.MoveUpdate(gameObject, iTween.Hash("position", goal, "time", 2.0f));
 
         }
 
@@ -84,6 +86,9 @@ public class EnemyBehavior : MonoBehaviour
         State = "ACTIVE";
     }
 
-
-
+    //destroys when it leaves the scene
+    void OnBecameInvisible()
+    {
+        Destroy(gameObject);
+    }
 }

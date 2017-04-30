@@ -5,24 +5,19 @@ using UnityEngine;
 //Script for enemy missiles to guide them to the player
 public class Missile : MonoBehaviour
 {
-    GameObject player;
     GameObject path;
     GameObject target;
     Vector3 goal;
     int timer;
     string State;
-    int moveSide;
 
 
     void Start()
     {
-        
         target = GameObject.FindGameObjectWithTag("MissileTarget");
         path = GameObject.FindGameObjectWithTag("MainCamera");
-        player = GameObject.FindGameObjectWithTag("Player");
 
         timer = 0;
-        moveSide = 0;
         transform.parent = path.transform;
         State = "ATTACK";
     }
