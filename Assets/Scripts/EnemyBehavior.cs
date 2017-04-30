@@ -12,7 +12,7 @@ public class EnemyBehavior : MonoBehaviour
     int timer;
     int moveSide;
     Vector3 rand;
-
+    MonoBehaviour fire;
 
     void Start()
     {
@@ -23,7 +23,9 @@ public class EnemyBehavior : MonoBehaviour
         timer = 0;
         moveSide = 0;
         rand = new Vector3(Random.Range(-7f, 7f), Random.Range(-20f, 20f), Random.Range(-7f, 7f));
-        
+        fire = (MonoBehaviour)GetComponent("GruntWeaponScript");
+        fire.enabled = false;
+
     }
 
     //the basic state machine for our grunts
@@ -39,7 +41,7 @@ public class EnemyBehavior : MonoBehaviour
             iTween.MoveUpdate(gameObject, iTween.Hash("position", goal, "time", 3.2f));
             if (Mathf.Abs(transform.position.x - goal.x) < 2 && Mathf.Abs(transform.position.y - goal.y) < 2 && Mathf.Abs(transform.position.z - goal.z) < 2)
                attack();
-
+            
 
         }
         else if (State.Equals("ATTACK"))
@@ -65,10 +67,14 @@ public class EnemyBehavior : MonoBehaviour
         else if (State.Equals("DISABLE"))
         {
             //eventually deparents the enemy
-            goal = transform.position - (path.transform.forward * 30);
 
-            iTween.MoveUpdate(gameObject, iTween.Hash("position", goal, "time", 2.0f));
+            fire.enabled = false;
+            goal = transform.position - (path.transform.forward * 20);
 
+            iTween.MoveUpdate(gameObject, iTween.Hash("position", goal, "time", 1.5f));
+            timer--;
+            if (timer < 310)
+                disable();
         }
 
     }
@@ -77,6 +83,7 @@ public class EnemyBehavior : MonoBehaviour
     public void attack()
     {
         State = "ATTACK";
+        fire.enabled = true;
     }
 
     //activates the enemy
@@ -87,7 +94,7 @@ public class EnemyBehavior : MonoBehaviour
     }
 
     //destroys when it leaves the scene
-    void OnBecameInvisible()
+    void disable()
     {
         Destroy(gameObject);
     }
