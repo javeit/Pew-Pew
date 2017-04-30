@@ -15,7 +15,7 @@ public class MissileLauncher : MonoBehaviour
     int moveSide;
     MonoBehaviour fire;
 
-
+    //Start, do I need to explain this?
     void Start()
     {
         path = GameObject.FindGameObjectWithTag("PathObject");

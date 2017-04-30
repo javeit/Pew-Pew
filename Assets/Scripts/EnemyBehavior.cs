@@ -6,13 +6,13 @@ using UnityEngine;
 public class EnemyBehavior : MonoBehaviour
 {
     GameObject player;
-    string State;
     GameObject path;
+    MonoBehaviour fire;
     Vector3 goal;
+    Vector3 rand;
+    string State;
     int timer;
     int moveSide;
-    Vector3 rand;
-    MonoBehaviour fire;
 
     void Start()
     {
@@ -22,7 +22,7 @@ public class EnemyBehavior : MonoBehaviour
 
         timer = 0;
         moveSide = 0;
-        rand = new Vector3(Random.Range(-7f, 7f), Random.Range(-20f, 20f), Random.Range(-7f, 7f));
+        rand = new Vector3(Random.Range(-5f, 5f), Random.Range(-10f, 10f), Random.Range(-5f, 5f));
         fire = (MonoBehaviour)GetComponent("GruntWeaponScript");
         fire.enabled = false;
 
@@ -36,7 +36,7 @@ public class EnemyBehavior : MonoBehaviour
         {
             //When it activates, it moves to the middle of the screen
             iTween.LookUpdate(gameObject, iTween.Hash("looktarget", goal, "speed", 1.0f));
-            goal = path.transform.position + (path.transform.forward * 50) + rand;
+            goal = path.transform.position + (path.transform.forward * 30) + rand;
 
             iTween.MoveUpdate(gameObject, iTween.Hash("position", goal, "time", 3.2f));
             if (Mathf.Abs(transform.position.x - goal.x) < 2 && Mathf.Abs(transform.position.y - goal.y) < 2 && Mathf.Abs(transform.position.z - goal.z) < 2)
