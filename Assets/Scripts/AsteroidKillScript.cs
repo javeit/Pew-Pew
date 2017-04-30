@@ -14,4 +14,8 @@ public class AsteroidKillScript : MonoBehaviour {
 	void OnBecameInvisible() {
 		Destroy (gameObject);
 	}
+	void OnCollisionEnter(Collision col){
+		Destroy (gameObject);
+	}
+
 }
