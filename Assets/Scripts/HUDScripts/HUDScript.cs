@@ -26,7 +26,7 @@ public class HUDScript : MonoBehaviour {
 	private Vector3 oldPos;
 	private Vector3 target;
 	private Vector3 startPosition;
-	private GameObject[] shipModels;
+	private GameObject[] shipModels = new GameObject[3];
 	private int index;
 	float timeToReachTarget;
 	// Use this for initialization
@@ -37,8 +37,10 @@ public class HUDScript : MonoBehaviour {
 		laserShot.volume = PlayerPrefs.GetFloat("fxVol");
 		Time.timeScale = 1.0F;
 		int shipSelect = PlayerPrefs.GetInt("ShipSelect");
-		shipModels = GameObject.FindGameObjectsWithTag("shipModels");
-		if(shipSelect == 2)
+		shipModels[0] = GameObject.Find("PlayerShip_Crystal");
+		shipModels[1] = GameObject.Find("JediStarfighter");
+		shipModels[2] = GameObject.Find("SwordFish");
+		if(shipSelect == 0)
 		{
 			shipModels[1].SetActive(false);
 			shipModels[2].SetActive(false);
@@ -48,7 +50,7 @@ public class HUDScript : MonoBehaviour {
 			shipModels[0].SetActive(false);
 			shipModels[2].SetActive(false);
 		}
-		else if(shipSelect == 0)
+		else if(shipSelect == 2)
 		{
 			shipModels[0].SetActive(false);
 			shipModels[1].SetActive(false);

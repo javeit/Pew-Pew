@@ -39,6 +39,7 @@ public class HUDShipSelect : MonoBehaviour {
 	
 	void StartGame()
 	{
+		Debug.Log(selectScript.getIndex());
 		PlayerPrefs.SetInt("ShipSelect", selectScript.getIndex());
 		SceneManager.LoadScene ("Test Scene",LoadSceneMode.Single);
 	}
