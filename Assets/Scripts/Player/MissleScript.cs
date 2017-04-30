@@ -28,8 +28,8 @@ public class MissleScript : MonoBehaviour {
 		}
 	}
 
-	/*void OnCollisionEnter(Collision col){
-		Debug.Log ("hit something");
+	void OnCollisionEnter(Collision col){
+		//Debug.Log ("hit something");
 		Destroy (gameObject);
-	}*/
+	}
 }
