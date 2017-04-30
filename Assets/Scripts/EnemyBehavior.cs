@@ -8,6 +8,7 @@ public class EnemyBehavior : MonoBehaviour
     GameObject player;
     string State;
     GameObject path;
+    MonoBehaviour fire;
     Vector3 goal;
     int timer;
     int moveSide;
@@ -18,11 +19,12 @@ public class EnemyBehavior : MonoBehaviour
     {
         path = GameObject.FindGameObjectWithTag("PathObject");
         player = GameObject.FindGameObjectWithTag("Player");
+        fire = (MonoBehaviour)GetComponent("GruntWeaponScript");
         State = "IDLE";
-
         timer = 0;
         moveSide = 0;
-        rand = new Vector3(Random.Range(-7f, 7f), Random.Range(-20f, 20f), Random.Range(-7f, 7f));
+        rand = new Vector3(Random.Range(-5f, 5f), Random.Range(-10f, 10f), Random.Range(-5f, 5f));
+        fire.enabled = false;
         
     }
 
@@ -34,7 +36,7 @@ public class EnemyBehavior : MonoBehaviour
         {
             //When it activates, it moves to the middle of the screen
             iTween.LookUpdate(gameObject, iTween.Hash("looktarget", goal, "speed", 1.0f));
-            goal = path.transform.position + (path.transform.forward * 50) + rand;
+            goal = path.transform.position + (path.transform.forward * 25) + rand;
 
             iTween.MoveUpdate(gameObject, iTween.Hash("position", goal, "time", 3.2f));
             if (Mathf.Abs(transform.position.x - goal.x) < 2 && Mathf.Abs(transform.position.y - goal.y) < 2 && Mathf.Abs(transform.position.z - goal.z) < 2)
@@ -45,7 +47,6 @@ public class EnemyBehavior : MonoBehaviour
         else if (State.Equals("ATTACK"))
         {
             //Moves back and forth in front of the player
-            iTween.LookUpdate(gameObject, iTween.Hash("looktarget", player.transform.position, "speed", 1.0f));
             if (timer > 350)
                 State = "DISABLE";
             timer = timer + 1;
@@ -61,14 +62,18 @@ public class EnemyBehavior : MonoBehaviour
             }
             if (moveSide == 100)
                 moveSide = 0;
+            iTween.LookUpdate(gameObject, iTween.Hash("looktarget", player.transform.position, "speed", 1.0f));
         }
         else if (State.Equals("DISABLE"))
         {
             //eventually deparents the enemy
-            goal = transform.position - (path.transform.forward * 30);
+            fire.enabled = false;
+            goal = transform.position - (path.transform.forward * 20);
 
-            iTween.MoveUpdate(gameObject, iTween.Hash("position", goal, "time", 2.0f));
-
+            iTween.MoveUpdate(gameObject, iTween.Hash("position", goal, "time", 1.5f));
+            timer--;
+            if (timer < 310)
+                disable();
         }
 
     }
@@ -77,6 +82,7 @@ public class EnemyBehavior : MonoBehaviour
     public void attack()
     {
         State = "ATTACK";
+        fire.enabled = true;
     }
 
     //activates the enemy
@@ -87,7 +93,7 @@ public class EnemyBehavior : MonoBehaviour
     }
 
     //destroys when it leaves the scene
-    void OnBecameInvisible()
+    void disable()
     {
         Destroy(gameObject);
     }

@@ -15,7 +15,7 @@ public class GruntWeaponScript: MonoBehaviour {
 
 	void Start () {
 		pathObject = GameObject.FindWithTag ("PathObject").transform;
-		target = GameObject.FindWithTag ("GruntTarget").transform;
+		target = GameObject.FindWithTag ("MissileTarget").transform;
 		time = delayTime;
 	}
 
@@ -24,7 +24,7 @@ public class GruntWeaponScript: MonoBehaviour {
 			GameObject newWeapon = Instantiate (weapon, pathObject);
 			newWeapon.transform.position = barrel.position;
 			newWeapon.transform.rotation = Quaternion.LookRotation (target.position  - barrel.position);
-			time = timeBetweenShots;
+            time = timeBetweenShots;
 		}
 		time -= Time.deltaTime;
 	}
