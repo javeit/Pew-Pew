@@ -4,42 +4,51 @@ using UnityEngine;
 
 public class FollowPathScriptLevel3 : MonoBehaviour {
 
+	public float startPathTime;
 	public float trenchRunTime;
-	public float resetPathTime;
+	public float toCoreTime;
+	public float strafeSpeed;
 	public Camera mainCamera;
 	public Camera pulledOut;
+	public EnemyPartHealth boss;
 
 	private float time;
 	private bool inTrench;
-	private bool onReset;
-	private bool bossExposed;
+	private bool onStrafe;
+	private bool toCore;
 
 	void Start () {
 		pulledOut.enabled = false;
-		iTween.MoveTo(gameObject, iTween.Hash("path", iTweenPath.GetPath("Trench Run"), "time", trenchRunTime, "easetype", iTween.EaseType.linear, "orientToPath",true));
-		inTrench = true;
-		onReset = false;
-		bossExposed = false;
-		time = trenchRunTime;
+		iTween.MoveTo(gameObject, iTween.Hash("path", iTweenPath.GetPath("Start Path"), "time", startPathTime, "orientToPath",true, "easetype", iTween.EaseType.linear));
+		time = trenchRunTime + toCoreTime + startPathTime;
+		inTrench = false;
+		onStrafe = false;
+		toCore = false;
 	}
 
 	void Update () {
-		if (inTrench && time < 1) {
-			pulledOut.enabled = true;
-			mainCamera.enabled = false;
-			iTween.MoveTo (gameObject, iTween.Hash ("path", iTweenPath.GetPath ("Trench Reset"), "time", resetPathTime, "easetype", iTween.EaseType.linear, "orientToPath", true));
-			inTrench = false;
-			onReset = true;
-			time = resetPathTime;
-		} else if (onReset && time < 1) {
-			pulledOut.enabled = false;
-			mainCamera.enabled = true;
-			iTween.MoveTo (gameObject, iTween.Hash ("path", iTweenPath.GetPath ("Trench Run"), "time", trenchRunTime, "easetype", iTween.EaseType.linear, "orientToPath", true));
+		if (time < toCoreTime + trenchRunTime + 0.01 && !inTrench) {
+			iTween.MoveTo(gameObject, iTween.Hash("path", iTweenPath.GetPath("Trench Run"), "time", trenchRunTime, "orientToPath", true, "easetype", iTween.EaseType.linear));
 			inTrench = true;
-			onReset = false;
-			time = trenchRunTime;
+		}
+		if (time < toCoreTime + 0.01 && !toCore && boss.pathChange) {
+			toCore = true;
+			iTween.MoveTo (gameObject, iTween.Hash ("path", iTweenPath.GetPath ("Path to Core"), "time", toCoreTime, "easetype", iTween.EaseType.linear, "orientToPath", true));
+		}
+		if (time < 1 && !onStrafe && toCore) {
+			iTween.MoveTo (gameObject, iTween.Hash ("path", iTweenPath.GetPath ("Strafing the Core"), "time", strafeSpeed, "looptype", iTween.LoopType.pingPong, "easetype", iTween.EaseType.linear));
+			onStrafe = true;
+			transform.rotation = Quaternion.Euler (new Vector3 (90, 180, 90));
 		}
 		time -= Time.deltaTime;
-		//Debug.Log (time);
+		Debug.Log (time);
+
+		if (boss.pathChange && !onStrafe) {
+			pulledOut.enabled = true;
+			mainCamera.enabled = false;
+		} else {
+			pulledOut.enabled = false;
+			mainCamera.enabled = true;
+		}
 	}
 }

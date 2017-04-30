@@ -22,6 +22,7 @@ public class PlayerWeaponController : MonoBehaviour {
 		gun = GetComponent<PlayerGunScript> ();
 		missile = GetComponent<PlayerMissleScript> ();
 		hudScript = GameObject.Find("CanvasMain").GetComponent<HUDScript>();
+		hudScript.setWeaponActive (0);
 	}
 
 	void Update () {
