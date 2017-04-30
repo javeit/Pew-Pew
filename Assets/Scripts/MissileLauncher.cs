@@ -2,16 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-//The script for our basic grunt enemies
-public class EnemyBehavior : MonoBehaviour
+//Scripts for missile launching enemy
+public class MissileLauncher : MonoBehaviour
 {
     GameObject player;
-    string State;
     GameObject path;
+    public Transform rocket;
     Vector3 goal;
+    Vector3 rand;
+    string State;
     int timer;
     int moveSide;
-    Vector3 rand;
+
 
 
     void Start()
@@ -19,35 +21,42 @@ public class EnemyBehavior : MonoBehaviour
         path = GameObject.FindGameObjectWithTag("PathObject");
         player = GameObject.FindGameObjectWithTag("Player");
         State = "IDLE";
-
-        timer = 0;
         moveSide = 0;
-        rand = new Vector3(Random.Range(-6f, 6f), Random.Range(-25f, 25f), Random.Range(-6f, 6f));
+        rand = new Vector3(Random.Range(-6f, 6f), Random.Range(-15f, 15f), Random.Range(-6f, 6f));
+        timer = 80;
     }
 
-    //the basic state machine for our grunts
+    //Contains the state machine for the missile launcher
     void Update()
     {
 
         if (State.Equals("ACTIVE"))
         {
-            //When it activates, it moves to the middle of the screen
+            //upon being activated it moves to the middle of the screen
             iTween.LookUpdate(gameObject, iTween.Hash("looktarget", goal, "speed", 1.0f));
-            goal = path.transform.position + (path.transform.forward * 50) + rand;
+            goal = path.transform.position + (path.transform.forward * 80) + rand;
 
             iTween.MoveUpdate(gameObject, iTween.Hash("position", goal, "time", 3.2f));
             if (Mathf.Abs(transform.position.x - goal.x) < 2 && Mathf.Abs(transform.position.y - goal.y) < 2 && Mathf.Abs(transform.position.z - goal.z) < 2)
-               attack();
+                attack();
 
 
         }
         else if (State.Equals("ATTACK"))
         {
-            //Moves back and forth in front of the player
+            //strafes back and forth and launches missile volleys
+            if (timer >= 125)
+            {
+                if (timer % 25 == 0)
+                    LaunchMissile();
+            }
+            timer++;
+
+            if (timer >= 200)
+                timer = 0;
+
             iTween.LookUpdate(gameObject, iTween.Hash("looktarget", player.transform.position, "speed", 1.0f));
-            if (timer > 350)
-                State = "DISABLE";
-            timer = timer + 1;
+
             if (moveSide < 50)
             {
                 transform.position = transform.position + (path.transform.right.normalized * .15f);
@@ -70,7 +79,7 @@ public class EnemyBehavior : MonoBehaviour
 
     }
 
-    //transitions to the attack state when called
+    //transitions to the attack state
     public void attack()
     {
         State = "ATTACK";
@@ -83,6 +92,11 @@ public class EnemyBehavior : MonoBehaviour
         State = "ACTIVE";
     }
 
+    public void LaunchMissile()
+    {
+        Transform rocketClone = (Transform)Instantiate(rocket,transform.position + (path.transform.up * 11), transform.rotation);
+        rocketClone.transform.position = transform.position + (path.transform.up *11);
+     }
 
 
 }
