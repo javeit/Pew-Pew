@@ -19,16 +19,13 @@ public class HUDScript : MonoBehaviour {
 	private GameObject pauseButtonGo;
 	private bool paused = false;
 	private int heartsLeft = 2;
-	private float dialogueStart = 0;
 	static private int livesLeft = 2;
 	private float dialogueRightX = 481;
 	private float dialogueLeftX = 338;
-	private bool sendInDialogue = false;
 	private float t;
 	private Vector3 oldPos;
 	private Vector3 target;
 	private Vector3 startPosition;
-	private bool sent = false;
 	private GameObject[] shipModels;
 	private int index;
 	float timeToReachTarget;
@@ -65,13 +62,11 @@ public class HUDScript : MonoBehaviour {
 		if(livesLeft <= -1){Destroy(lives[0]);}
 		for(int i=1;i<weaponBoxes.Length;i++)
 		{
-			weaponBoxes[i].SetActive(false);
+			weaponBoxes[i].SetActive(false); 
 		}
 		Button btn = pauseButton.GetComponent<Button>();
 		btn.onClick.AddListener(PauseGame);
-		pauseButtonGo = GameObject.Find("pauseButton");
 		oldPos = target = dialogueBox.GetComponent<RectTransform>().anchoredPosition;
-		Debug.Log(oldPos.ToString());
 	}
 	
 	// Update is called once per frame
@@ -109,12 +104,11 @@ public class HUDScript : MonoBehaviour {
 		
 	}
 	
-	void PauseGame()
+	public void PauseGame()
 	{
-		Debug.Log("GOT");
 		if(paused)
 		{
-			Cursor.visible = true;
+			Cursor.visible = false;
 			Cursor.lockState = CursorLockMode.Locked;
 			pauseMenu.SetActive(false);
 			paused = false;
@@ -130,7 +124,6 @@ public class HUDScript : MonoBehaviour {
 			pauseButtons[1].GetComponent<Button>().onClick.AddListener(RestartGame);
 			pauseButtons[2].GetComponent<Button>().onClick.AddListener(QuitGame);
 		}
-		Debug.Log("Pause");
 	}
 	public bool getPaused()
 	{
