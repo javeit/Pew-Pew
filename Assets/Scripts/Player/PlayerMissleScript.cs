@@ -42,6 +42,5 @@ public class PlayerMissleScript : MonoBehaviour {
 			}
 		}
 		timeToFire -= Time.deltaTime;
-		Debug.Log (timeToFire);
 	}
 }

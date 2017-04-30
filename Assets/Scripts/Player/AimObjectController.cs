@@ -4,24 +4,57 @@ using UnityEngine;
 
 public class AimObjectController : MonoBehaviour {
 
-	public float moveSpeed;
+	public float moveSpeedMouse;
+	public float moveSpeedController;
 
-	private float xVal;
-	private float yVal;
+	private float xValMouse;
+	private float xValController;
+	private float yValMouse;
+	private float yValController;
+
+	private bool OSX;
 
 	void Start(){
+		if (Application.platform == RuntimePlatform.OSXEditor ||
+		    Application.platform == RuntimePlatform.OSXDashboardPlayer ||
+		    Application.platform == RuntimePlatform.OSXPlayer) {
+			OSX = true;
+		} else {
+			OSX = false;
+		}
+
 		Cursor.visible = false;
-		Cursor.lockState = CursorLockMode.Confined;
+		Cursor.lockState = CursorLockMode.Locked;
 	}
 
-	void FixedUpdate () {
+	void Update () {
+		
+		if (OSX) {
+			
+			xValMouse = Input.GetAxis ("Aim Horizontal Mac");
+			yValMouse = Input.GetAxis ("Aim Vertical Mac");
 
-		//Vector3 temp = Camera.main.ScreenToWorldPoint (new Vector3 (Input.mousePosition.x, Input.mousePosition.y, 40));
-		//transform.position = temp;
+			transform.localPosition += new Vector3 (xValMouse, yValMouse, 0) * moveSpeedMouse;
 
-		xVal = Input.GetAxis ("Aim Horizontal Windows");
-		yVal = Input.GetAxis ("Aim Vertical Windows");
 
-		transform.localPosition += new Vector3(xVal, yVal, 0) * moveSpeed;
+			xValController = Input.GetAxis ("Aim Horizontal Mac Controller");
+			yValController = Input.GetAxis ("Aim Vertical Mac Controller");
+
+			transform.localPosition += new Vector3 (xValController, yValController, 0) * moveSpeedController;
+
+		} else {
+			
+			xValMouse = Input.GetAxis ("Aim Horizontal Windows");
+			yValMouse = Input.GetAxis ("Aim Vertical Windows");
+
+			transform.localPosition += new Vector3 (xValMouse, yValMouse, 0) * moveSpeedMouse;
+
+
+			xValController = Input.GetAxis ("Aim Horizontal Windows Controller");
+			yValController = Input.GetAxis ("Aim Vertical Windows Controller");
+
+			transform.localPosition += new Vector3 (xValController, yValController, 0) * moveSpeedController;
+
+		}
 	}
 }
