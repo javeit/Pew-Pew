@@ -23,6 +23,7 @@ public class EnemyBehavior : MonoBehaviour
         timer = 0;
         moveSide = 0;
         rand = new Vector3(Random.Range(-6f, 6f), Random.Range(-25f, 25f), Random.Range(-6f, 6f));
+        
     }
 
     //the basic state machine for our grunts
