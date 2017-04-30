@@ -28,6 +28,7 @@ public class HUDScript : MonoBehaviour {
 	private Vector3 startPosition;
 	private bool sent = false;
 	private GameObject[] shipModels;
+	private int index;
 	float timeToReachTarget;
 	// Use this for initialization
 	void Start () {
@@ -85,7 +86,7 @@ public class HUDScript : MonoBehaviour {
 		}
 		if(paused)
 		{
-			int index = Array.IndexOf(pauseButtons,selectBox.transform.parent.gameObject);
+			index = Array.IndexOf(pauseButtons,selectBox.transform.parent.gameObject);
 			if(Input.GetKeyDown("down") && index != 2)
 			{
 				selectBox.transform.SetParent(pauseButtons[index + 1].transform,false);
@@ -107,11 +108,15 @@ public class HUDScript : MonoBehaviour {
 		Debug.Log("GOT");
 		if(paused)
 		{
+			Cursor.visible = true;
+			Cursor.lockState = CursorLockMode.Locked;
 			pauseMenu.SetActive(false);
 			paused = false;
 			Time.timeScale = 1.0F;
 		}
 		else{
+			Cursor.visible = true;
+			Cursor.lockState = CursorLockMode.Confined;
 			pauseMenu.SetActive(true);
 			paused = true;
 			Time.timeScale = 0.0F;
@@ -174,4 +179,9 @@ public class HUDScript : MonoBehaviour {
 	}
 	public void QuitGame()
 	{}
+	public void setIndex(int i)
+	{
+		selectBox.transform.SetParent(pauseButtons[i].transform,false);
+		index = i;
+	}
 }

@@ -13,8 +13,10 @@ public class AimObjectController : MonoBehaviour {
 	private float yValController;
 
 	private bool OSX;
-
+	//Need this to disable while paused -Scott
+	HUDScript hudScript;
 	void Start(){
+		hudScript = GameObject.Find("CanvasMain").GetComponent<HUDScript>();
 		if (Application.platform == RuntimePlatform.OSXEditor ||
 		    Application.platform == RuntimePlatform.OSXDashboardPlayer ||
 		    Application.platform == RuntimePlatform.OSXPlayer) {
@@ -28,7 +30,7 @@ public class AimObjectController : MonoBehaviour {
 	}
 
 	void Update () {
-		
+		if(hudScript.getPaused()){return;}
 		if (OSX) {
 			
 			xValMouse = Input.GetAxis ("Aim Horizontal Mac");

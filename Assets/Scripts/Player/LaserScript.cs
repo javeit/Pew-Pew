@@ -5,9 +5,11 @@ using UnityEngine;
 public class LaserScript : MonoBehaviour {
 
 	LineRenderer line;
-
+	//Need this to disable while paused -Scott
+	HUDScript hudScript;
 	void Start () {
 		line = GetComponent<LineRenderer> ();
+		hudScript = GameObject.Find("CanvasMain").GetComponent<HUDScript>();
 	}
 
 	void Update () {
@@ -20,7 +22,7 @@ public class LaserScript : MonoBehaviour {
 	IEnumerator FireLaser () {
 		line.enabled = true;
 
-		while (Input.GetButton("Fire1")) {
+		while (Input.GetButton("Fire1") && !hudScript.getPaused()) {
 			Ray ray = new Ray (transform.position, transform.forward);
 			RaycastHit hit;
 
