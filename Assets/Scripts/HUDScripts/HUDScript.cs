@@ -1,15 +1,19 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class HUDScript : MonoBehaviour {
 	public Button pauseButton;
+	public GameObject pauseMenu;
 	public GameObject[] hearts;
 	public GameObject[] lives;
 	public GameObject[] weaponBoxes;
 	public GameObject dialogueBox;
+	public GameObject selectBox;
+	public GameObject[] pauseButtons;
 	private GameObject pauseButtonGo;
 	private bool paused = false;
 	private int heartsLeft = 2;
@@ -23,13 +27,13 @@ public class HUDScript : MonoBehaviour {
 	private Vector3 target;
 	private Vector3 startPosition;
 	private bool sent = false;
-	private GameObject[] shipModels;
+	public GameObject[] shipModels;
 	float timeToReachTarget;
 	// Use this for initialization
 	void Start () {
 		int shipSelect = PlayerPrefs.GetInt("ShipSelect");
 		shipModels = GameObject.FindGameObjectsWithTag("shipModels");
-		if(shipSelect == 0)
+		if(shipSelect == 2)
 		{
 			shipModels[1].SetActive(false);
 			shipModels[2].SetActive(false);
@@ -39,7 +43,7 @@ public class HUDScript : MonoBehaviour {
 			shipModels[0].SetActive(false);
 			shipModels[2].SetActive(false);
 		}
-		else if(shipSelect == 2)
+		else if(shipSelect == 0)
 		{
 			shipModels[0].SetActive(false);
 			shipModels[1].SetActive(false);
@@ -74,6 +78,26 @@ public class HUDScript : MonoBehaviour {
 		{
 			MoveObject(new Vector3(dialogueLeftX,oldPos.y,oldPos.z),1.0f);
 		}
+		if(Input.GetKeyDown("escape"))
+		{
+			PauseGame();
+		}
+		if(paused)
+		{
+			int index = Array.IndexOf(pauseButtons,selectBox.transform.parent.gameObject);
+			if(Input.GetKeyDown("down") && index != 2)
+			{
+				selectBox.transform.SetParent(pauseButtons[index + 1].transform,false);
+			}
+			else if(Input.GetKeyDown("up") && index != 0)
+			{
+				selectBox.transform.SetParent(pauseButtons[index - 1].transform,false);
+			}
+			else if(Input.GetKeyDown("return"))
+			{
+				pauseButtons[index].GetComponent<Button>().onClick.Invoke();
+			}
+		}
 		
 	}
 	
@@ -82,13 +106,17 @@ public class HUDScript : MonoBehaviour {
 		Debug.Log("GOT");
 		if(paused)
 		{
+			pauseMenu.SetActive(false);
 			paused = false;
 			Time.timeScale = 1.0F;
 		}
 		else{
+			pauseMenu.SetActive(true);
 			paused = true;
-			
 			Time.timeScale = 0.0F;
+			pauseButtons[0].GetComponent<Button>().onClick.AddListener(PauseGame);
+			pauseButtons[1].GetComponent<Button>().onClick.AddListener(RestartGame);
+			pauseButtons[2].GetComponent<Button>().onClick.AddListener(QuitGame);
 		}
 		Debug.Log("Pause");
 	}
@@ -138,4 +166,11 @@ public class HUDScript : MonoBehaviour {
         timeToReachTarget = time;
         target = destination; 
 	}
+	
+	public void RestartGame()
+	{
+		SceneManager.LoadScene ("Ship Select",LoadSceneMode.Single);
+	}
+	public void QuitGame()
+	{}
 }

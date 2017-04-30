@@ -11,6 +11,7 @@ public class HUDMainMenu : MonoBehaviour {
 	void Start () {
 		buttons = this.gameObject.transform.GetChild(0).GetComponentsInChildren<Button>();
 		buttons[0].onClick.AddListener(StartGame);
+		buttons[3].onClick.AddListener(About);
 	}
 	
 	// Update is called once per frame
@@ -21,5 +22,10 @@ public class HUDMainMenu : MonoBehaviour {
 	void StartGame()
 	{
 		SceneManager.LoadScene ("Ship Select",LoadSceneMode.Single);
+	}
+	
+	void About()
+	{
+		SceneManager.LoadScene ("About",LoadSceneMode.Single);
 	}
 }
