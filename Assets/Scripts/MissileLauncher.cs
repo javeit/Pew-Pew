@@ -13,17 +13,19 @@ public class MissileLauncher : MonoBehaviour
     string State;
     int timer;
     int moveSide;
-
+    MonoBehaviour fire;
 
 
     void Start()
     {
         path = GameObject.FindGameObjectWithTag("PathObject");
         player = GameObject.FindGameObjectWithTag("Player");
+        fire = (MonoBehaviour)GetComponent("GruntWeaponScript");
         State = "IDLE";
         moveSide = 0;
         rand = new Vector3(Random.Range(-6f, 6f), Random.Range(-15f, 15f), Random.Range(-6f, 6f));
         timer = 80;
+        fire.enabled = false;
     }
 
     //Contains the state machine for the missile launcher
@@ -83,6 +85,7 @@ public class MissileLauncher : MonoBehaviour
     public void attack()
     {
         State = "ATTACK";
+        fire.enabled = true;
     }
 
     //activates the enemy
@@ -94,8 +97,8 @@ public class MissileLauncher : MonoBehaviour
 
     public void LaunchMissile()
     {
-        Transform rocketClone = (Transform)Instantiate(rocket,transform.position + (path.transform.up * 11), transform.rotation);
-        rocketClone.transform.position = transform.position + (path.transform.up *11);
+        Transform rocketClone = (Transform)Instantiate(rocket,transform.position + (path.transform.up * 10), transform.rotation);
+        rocketClone.transform.position = transform.position + (path.transform.up *10);
      }
 
 
