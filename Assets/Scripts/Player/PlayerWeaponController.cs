@@ -7,30 +7,57 @@ public class PlayerWeaponController : MonoBehaviour {
 	public LaserScript laser;
 
 	private PlayerGunScript gun;
-	private PlayerMissleScript missle;
+	private PlayerMissleScript missile;
 	public HUDScript hudScript;
+	private bool OSX;
 
 	void Start () { 
+		if (Application.platform == RuntimePlatform.OSXEditor ||
+			Application.platform == RuntimePlatform.OSXDashboardPlayer ||
+			Application.platform == RuntimePlatform.OSXPlayer) {
+			OSX = true;
+		} else {
+			OSX = false;
+		}
 		gun = GetComponent<PlayerGunScript> ();
-		missle = GetComponent<PlayerMissleScript> ();
+		missile = GetComponent<PlayerMissleScript> ();
 	}
 
 	void Update () {
-		if (Input.GetKeyDown (KeyCode.Alpha1)) {
-			laser.gameObject.SetActive (false);
-			missle.enabled = false;
-			gun.enabled = true;
-			hudScript.setWeaponActive (0);
-		} else if (Input.GetKeyDown (KeyCode.Alpha2)) {
-			gun.enabled = false;
-			missle.enabled = false;
-			laser.gameObject.SetActive (true);
-			hudScript.setWeaponActive (1);
-		} else if (Input.GetKeyDown (KeyCode.Alpha3)) {
-			laser.gameObject.SetActive (false);
-			gun.enabled = false;
-			missle.enabled = true;
-			hudScript.setWeaponActive (2);
+		if (OSX) {
+			if (Input.GetButtonDown ("Switch To Gun Mac")) {
+				laser.gameObject.SetActive (false);
+				missile.enabled = false;
+				gun.enabled = true;
+				hudScript.setWeaponActive (0);
+			} else if (Input.GetButtonDown ("Switch To Laser Mac")) {
+				gun.enabled = false;
+				missile.enabled = false;
+				laser.gameObject.SetActive (true);
+				hudScript.setWeaponActive (1);
+			} else if (Input.GetButtonDown ("Switch To Missile Mac")) {
+				laser.gameObject.SetActive (false);
+				gun.enabled = false;
+				missile.enabled = true;
+				hudScript.setWeaponActive (2);
+			}
+		} else {
+			if (Input.GetButtonDown ("Switch To Gun Windows")) {
+				laser.gameObject.SetActive (false);
+				missile.enabled = false;
+				gun.enabled = true;
+				hudScript.setWeaponActive (0);
+			} else if (Input.GetButtonDown ("Switch To Laser Windows")) {
+				gun.enabled = false;
+				missile.enabled = false;
+				laser.gameObject.SetActive (true);
+				hudScript.setWeaponActive (1);
+			} else if (Input.GetButtonDown ("Switch To Missile Windows")) {
+				laser.gameObject.SetActive (false);
+				gun.enabled = false;
+				missile.enabled = true;
+				hudScript.setWeaponActive (2);
+			}
 		}
 	}
 }
