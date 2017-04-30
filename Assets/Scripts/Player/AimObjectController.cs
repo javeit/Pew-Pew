@@ -54,7 +54,6 @@ public class AimObjectController : MonoBehaviour {
 			yValController = Input.GetAxis ("Aim Vertical Windows Controller");
 
 			transform.localPosition += new Vector3 (xValController, yValController, 0) * moveSpeedController;
-
 		}
 	}
 }
