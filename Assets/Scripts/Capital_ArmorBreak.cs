@@ -21,6 +21,8 @@ public class Capital_ArmorBreak : MonoBehaviour {
 	public ParticleSystem exp2;
 	public ParticleSystem exp3;
 
+	private bool haveExploded = false;
+
 
 	// Use this for initialization
 	void Start () {
@@ -54,8 +56,12 @@ public class Capital_ArmorBreak : MonoBehaviour {
 		iTween.MoveTo (GameObject.Find ("Breakaway"), iTween.Hash ("x", targetX, "y", targetY, "z", targetZ, "islocal", true, "time", 10));
 
 		//EXPLOSIONS
-		exp1.Play(true);
-		exp2.Play(true);
-		exp3.Play(true);
+		if (!haveExploded) {
+			exp1.Play (true);
+			exp2.Play (true);
+			exp3.Play (true);
+			haveExploded = true;
+		}
+		
 	}
 }

@@ -142,7 +142,7 @@ public class HUDScript : MonoBehaviour {
 			{
 				livesLeft--;
 				heartsLeft = 2;
-				SceneManager.LoadScene (Application.loadedLevel);
+				SceneManager.LoadScene ("Test Scene",LoadSceneMode.Single);
 			}
 	}
 	public void setWeaponActive(int num)
