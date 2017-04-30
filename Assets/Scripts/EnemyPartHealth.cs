@@ -15,6 +15,9 @@ public class EnemyPartHealth : MonoBehaviour {
 	//capitalShip PlateRemoval Script
 	public Capital_ArmorBreak peelScript;
 
+	//capital level path change variable
+	public bool pathChange = false;
+
 	//Amount of health to take from parent when this part is destroyed
 	public int HPfromParent;
 
@@ -58,20 +61,23 @@ public class EnemyPartHealth : MonoBehaviour {
 		foreach (Transform child in transform) {
 			GameObject.Destroy (child.gameObject);
 		}
-		Destroy (gameObject);
+		if (peelScript == null) { //do not destroy part if it is the capital ships armor piece
+			Destroy (gameObject);
 
-		Explosion.Play(true);
+			Explosion.Play (true);
+		}
 
 		//deal with capital ship parts special case
 		if (peelScript != null) {
 			peelScript.breakArmor ();
+			pathChange = true;
 		}
 
 		if (partParent != null) { //if part has a parent, subtract health from it
 			EnemyPartHealth parentScript = partParent.GetComponent<EnemyPartHealth> ();
 			parentScript.partHP -= HPfromParent;
 		} else { //we have killed the core, remove entire prefab
-			deathScript.afterDeath();
+				deathScript.afterDeath ();
 		}	
 	}
 }

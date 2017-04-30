@@ -6,6 +6,8 @@ public class Capital_ArmorBreak : MonoBehaviour {
 
 	private bool isDead;
 
+	public GameObject trenchparts;
+
 	//plate target rotation and position
 	private Vector3 currAngle;
 	private Vector3 currPos;
@@ -40,10 +42,13 @@ public class Capital_ArmorBreak : MonoBehaviour {
 	}
 
 	public void breakArmor() {
-		//kill all the babies
-		foreach (Transform child in transform) {
-			GameObject.Destroy (child.gameObject);
-		}
+		StartCoroutine (wait2secs ());
+	}
+
+	IEnumerator wait2secs() {
+		yield return new WaitForSeconds (2);
+		GameObject.Destroy(trenchparts);
+
 		//float the plate away
 		isDead = true;
 		iTween.MoveTo (GameObject.Find ("Breakaway"), iTween.Hash ("x", targetX, "y", targetY, "z", targetZ, "islocal", true, "time", 10));
