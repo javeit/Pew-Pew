@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class HUDOptionsCanv : MonoBehaviour {
 
@@ -21,5 +22,10 @@ public class HUDOptionsCanv : MonoBehaviour {
 	{
 		activeSlider = s;
 		selectBox.transform.SetParent(s.transform,false);
+	}
+	
+	public void GoBack()
+	{
+		SceneManager.LoadScene ("Main Menu",LoadSceneMode.Single);
 	}
 }
