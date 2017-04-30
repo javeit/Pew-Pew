@@ -19,7 +19,7 @@ public class PlayerMissleScript : MonoBehaviour {
 	}
 
 	void Update () {
-		if (Input.GetButton ("Fire1") && hudScript.getPaused() == false) {
+		if (Input.GetButtonDown ("Fire1") && hudScript.getPaused() == false) {
 			if (timeToFire <= 0) {
 				
 				if (GameObject.FindWithTag("Enemy") != null) {
@@ -39,9 +39,8 @@ public class PlayerMissleScript : MonoBehaviour {
 					newMissle.target = missleTarget;
 				}
 				timeToFire = timeBetweenShots;
-			} else {
-				timeToFire -= Time.deltaTime;
 			}
 		}
+		timeToFire -= Time.deltaTime;
 	}
 }
