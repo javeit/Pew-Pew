@@ -5,15 +5,24 @@ using UnityEngine.UI;
 
 public class HealthSliderScript : MonoBehaviour {
 
-	public Slider musicSlider;
-	public int health;
+	public Slider healthSlider;
+	CoreColor corScript;
+	HUDCreditsScript credits;
+	bool calledCredits = false;
+	//public int health;
 	// Use this for initialization
 	void Start () {
-		
+		corScript = GameObject.Find("CapitalCore").GetComponent<CoreColor>();
+		credits = GameObject.Find("CreditsStuff").GetComponent<HUDCreditsScript>();
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		musicSlider.value = health;
+		healthSlider.value = corScript.coreHP;
+		if(!calledCredits && corScript.coreHP <= 0)
+		{
+			credits.StartRoll();
+			calledCredits = true;
+		}
 	}
 }

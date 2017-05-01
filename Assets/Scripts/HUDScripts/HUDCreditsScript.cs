@@ -17,7 +17,6 @@ public class HUDCreditsScript : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		startPosition = target = transform.GetComponent<RectTransform>().anchoredPosition;
-		SetDestination(new Vector3(startPosition.x,520,startPosition.z),10);
 	}
 	
 	// Update is called once per frame
@@ -33,4 +32,8 @@ public class HUDCreditsScript : MonoBehaviour {
             timeToReachTarget = time;
             target = destination; 
      }
+	 public void StartRoll()
+	 {
+		 SetDestination(new Vector3(startPosition.x,2000,startPosition.z),15);
+	 }
 }
