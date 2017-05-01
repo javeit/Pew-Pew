@@ -5,7 +5,7 @@ using UnityEngine;
 public class TurretAiming : MonoBehaviour {
     GameObject player;
     public GameObject turret;
-	public float turnSpeedMult = 1.0f;
+	private float turnSpeedMult = 1.0f;
     //Camera camera;
     Component[] list;
 	void Start () {
@@ -16,7 +16,7 @@ public class TurretAiming : MonoBehaviour {
 
     // Update is called once per frame
     void Update() {
-		iTween.LookUpdate(turret, iTween.Hash("looktarget", player.transform.position, 0.5f*turnSpeedMult));
+		iTween.LookUpdate(turret, iTween.Hash("looktarget", player.transform.position, "speed", 0.5f*turnSpeedMult));
 
     }
 

@@ -18,7 +18,7 @@ public class EnemyBehavior : MonoBehaviour
 	public GruntWeaponScript[] MiniGunsEquipped;
 	public SniperWeaponScript SniperGun;
 	public float shipWeight = 1.0f;
-	public float faceSpeed = 1.0f;
+	private float faceSpeed = 1.0f;
 	private bool seen;
 	private bool shooting;
 
@@ -53,7 +53,7 @@ public class EnemyBehavior : MonoBehaviour
 
 		if (State.Equals ("ACTIVE")) {
 			//When it activates, it moves to the middle of the screen
-			iTween.LookUpdate (gameObject, iTween.Hash ("looktarget", player.transform.position, "speed", 1.0f*faceSpeed));
+			iTween.LookUpdate (gameObject, iTween.Hash ("looktarget", player.transform.position, "speed", 1.0f));
 			goal = path.transform.position + (path.transform.forward * 30) + rand;
 
 			iTween.MoveUpdate (gameObject, iTween.Hash ("position", goal, "time", 0.5f*shipWeight));
