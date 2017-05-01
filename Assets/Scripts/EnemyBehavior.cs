@@ -14,6 +14,12 @@ public class EnemyBehavior : MonoBehaviour
     int timer;
     int moveSide;
 
+	public GameObject[] visibleBits;
+	public GruntWeaponScript[] weaponsEquipped;
+	public float shipWeight = 1.0f;
+	private bool seen;
+	private bool shooting;
+
     void Start()
     {
         path = GameObject.FindGameObjectWithTag("PathObject");
@@ -23,8 +29,16 @@ public class EnemyBehavior : MonoBehaviour
         timer = 0;
         moveSide = 0;
         rand = new Vector3(Random.Range(-5f, 5f), Random.Range(-10f, 10f), Random.Range(-5f, 5f));
-        fire = (MonoBehaviour)GetComponent("GruntWeaponScript");
-        fire.enabled = false;
+
+		//hide all parts
+		foreach (GameObject model in visibleBits) {
+			model.GetComponent<Renderer> ().enabled = false;
+		}
+
+		//disable all weapon scripts
+		foreach (GruntWeaponScript pewpew in weaponsEquipped) {
+			pewpew.enabled = false;
+		}
 
     }
 
@@ -32,50 +46,57 @@ public class EnemyBehavior : MonoBehaviour
     void Update()
     {
 
-        if (State.Equals("ACTIVE"))
-        {
-            //When it activates, it moves to the middle of the screen
-            iTween.LookUpdate(gameObject, iTween.Hash("looktarget", goal, "speed", 1.0f));
-            goal = path.transform.position + (path.transform.forward * 30) + rand;
+		if (State.Equals ("ACTIVE")) {
+			//When it activates, it moves to the middle of the screen
+			iTween.LookUpdate (gameObject, iTween.Hash ("looktarget", player.transform.position, "speed", 1.0f));
+			goal = path.transform.position + (path.transform.forward * 30) + rand;
 
-            iTween.MoveUpdate(gameObject, iTween.Hash("position", goal, "time", 3.2f));
-            if (Mathf.Abs(transform.position.x - goal.x) < 2 && Mathf.Abs(transform.position.y - goal.y) < 2 && Mathf.Abs(transform.position.z - goal.z) < 2)
-               attack();
+			iTween.MoveUpdate (gameObject, iTween.Hash ("position", goal, "time", 0.5f*shipWeight));
+			if (Mathf.Abs (transform.position.x - goal.x) < 2 && Mathf.Abs (transform.position.y - goal.y) < 2 && Mathf.Abs (transform.position.z - goal.z) < 2)
+				attack ();
+
+			//and becomes visible
+			foreach (GameObject model in visibleBits) {
+				model.GetComponent<Renderer> ().enabled = true;
+			}
             
 
-        }
-        else if (State.Equals("ATTACK"))
-        {
-            //Moves back and forth in front of the player
-            iTween.LookUpdate(gameObject, iTween.Hash("looktarget", player.transform.position, "speed", 1.0f));
-            if (timer > 350)
-                State = "DISABLE";
+		} else if (State.Equals ("ATTACK")) {
+			//Moves back and forth in front of the player
+			iTween.LookUpdate (gameObject, iTween.Hash ("looktarget", player.transform.position, "speed", 1.0f));
+			if (timer > 350)
+                //State = "DISABLE";
             timer = timer + 1;
-            if (moveSide < 50)
-            {
-                transform.position = transform.position + (path.transform.right.normalized * .15f);
-                moveSide++;
-            }
-            if (moveSide >= 50)
-            {
-                transform.position = transform.position - (path.transform.right.normalized * .15f);
-                moveSide++;
-            }
-            if (moveSide == 100)
-                moveSide = 0;
-        }
-        else if (State.Equals("DISABLE"))
-        {
-            //eventually deparents the enemy
+			if (moveSide < 50) {
+				transform.position = transform.position + (path.transform.right.normalized * .2f);
+				moveSide++;
+			}
+			if (moveSide >= 50) {
+				transform.position = transform.position - (path.transform.right.normalized * .2f);
+				moveSide++;
+			}
+			if (moveSide == 100)
+				moveSide = 0;
 
-            fire.enabled = false;
-            goal = transform.position - (path.transform.forward * 20);
+			//and starts shooting
+			foreach (GruntWeaponScript pewpew in weaponsEquipped) {
+				if (pewpew != null) {
+					pewpew.enabled = true;
+				}
+			}
+		} else if (State.Equals ("DISABLE")) {
+			//eventually deparents the enemy
 
-            iTween.MoveUpdate(gameObject, iTween.Hash("position", goal, "time", 1.5f));
-            timer--;
-            if (timer < 310)
-                disable();
-        }
+			//fire.enabled = false;
+			goal = transform.position - (path.transform.forward * 20);
+
+			iTween.MoveUpdate (gameObject, iTween.Hash ("position", goal, "time", 0.5f*shipWeight));
+			timer--;
+			if (timer < 310)
+				disable ();
+		} else if (State.Equals ("IDLE")) {
+			iTween.LookUpdate(gameObject, iTween.Hash("looktarget", player.transform.position, "speed", 1.0f));
+		}
 
     }
 
@@ -83,7 +104,7 @@ public class EnemyBehavior : MonoBehaviour
     public void attack()
     {
         State = "ATTACK";
-        fire.enabled = true;
+        //fire.enabled = true;
     }
 
     //activates the enemy

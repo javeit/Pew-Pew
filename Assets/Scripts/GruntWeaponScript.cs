@@ -12,6 +12,7 @@ public class GruntWeaponScript: MonoBehaviour {
 	private Transform target;
 	private Transform pathObject;
 	private float time;
+	private float distanceFromTarget;
 
 	void Start () {
 		pathObject = GameObject.FindWithTag ("PathObject").transform;
@@ -21,10 +22,14 @@ public class GruntWeaponScript: MonoBehaviour {
 
 	void Update () {
 		if (time < 0) {
-			GameObject newWeapon = Instantiate (weapon, pathObject);
-			newWeapon.transform.position = barrel.position;
-			newWeapon.transform.rotation = Quaternion.LookRotation (target.position  - barrel.position);
-			time = timeBetweenShots;
+			//if within a reasonable range, fire a bullet
+			distanceFromTarget = Vector3.Distance (gameObject.transform.position, target.position);
+			if (distanceFromTarget <= 600.0f) {
+				GameObject newWeapon = Instantiate (weapon, pathObject);
+				newWeapon.transform.position = barrel.position;
+				newWeapon.transform.rotation = Quaternion.LookRotation (target.position - barrel.position);
+				time = timeBetweenShots;
+			}
 		}
 		time -= Time.deltaTime;
 	}

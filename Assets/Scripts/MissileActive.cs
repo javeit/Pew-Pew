@@ -21,7 +21,7 @@ public class MissileActive : MonoBehaviour {
 
         passes++;
         if (other.CompareTag("Player") && passes >= count)
-            enemy.Activate();
+            enemy.attack();
         transform.parent = null;
     }
 }

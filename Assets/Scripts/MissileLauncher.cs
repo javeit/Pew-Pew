@@ -15,6 +15,10 @@ public class MissileLauncher : MonoBehaviour
     int moveSide;
     MonoBehaviour fire;
 
+	//missile fire interval
+	public float timeBetweenShots;
+	private float time;
+
     //Start, do I need to explain this?
     void Start()
     {
@@ -25,14 +29,14 @@ public class MissileLauncher : MonoBehaviour
         moveSide = 0;
         rand = new Vector3(Random.Range(-6f, 6f), Random.Range(-15f, 15f), Random.Range(-6f, 6f));
         timer = 80;
-        fire.enabled = false;
+        //fire.enabled = false;
     }
 
     //Contains the state machine for the missile launcher
     void Update()
     {
 
-        if (State.Equals("ACTIVE"))
+        /*if (State.Equals("ACTIVE"))
         {
             //upon being activated it moves to the middle of the screen
             iTween.LookUpdate(gameObject, iTween.Hash("looktarget", goal, "speed", 1.0f));
@@ -43,17 +47,17 @@ public class MissileLauncher : MonoBehaviour
                 attack();
 
 
-        }
-        else if (State.Equals("ATTACK"))
+        }*/
+        if (State.Equals("ATTACK"))
         {
-            //strafes back and forth and launches missile volleys
-            if (timer >= 125)
-            {
-                if (timer % 25 == 0)
-                    LaunchMissile();
-            }
-            timer++;
+			//Fire misile based on public interval
+			if (time < 0) {
+				LaunchMissile();
+				time = timeBetweenShots;
+			}
+			time -= Time.deltaTime;
 
+            //strafes back and forth
             if (timer >= 200)
                 timer = 0;
 
@@ -85,7 +89,7 @@ public class MissileLauncher : MonoBehaviour
     public void attack()
     {
         State = "ATTACK";
-        fire.enabled = true;
+        //fire.enabled = true;
     }
 
     //activates the enemy

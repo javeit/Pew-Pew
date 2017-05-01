@@ -34,6 +34,11 @@ public class LaserScript : MonoBehaviour {
 						Destroy (hit.rigidbody.gameObject);
 					}
 				}
+				if (hit.collider) {
+					if (hit.collider.tag == "Enemy") {
+						Destroy (hit.collider.gameObject);
+					}
+				}
 			} else {
 				line.SetPosition (1, ray.GetPoint (500));
 			}
