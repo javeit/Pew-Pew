@@ -38,6 +38,10 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	void OnTriggerEnter(Collider col){
+		if(col.tag == "playerGun" || col.tag == "playerMissile")
+		{
+			return;
+		}
 		wasHit = true;
 	}
 }
