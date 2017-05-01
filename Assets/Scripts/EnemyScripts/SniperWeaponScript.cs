@@ -23,18 +23,18 @@ public class SniperWeaponScript : MonoBehaviour {
 	}
 
 	void Update () {
-		//constantly update targeting beam
-		targetBeam ();
+		distanceFromTarget = Vector3.Distance (gameObject.transform.position, target.position);
+		if (distanceFromTarget <= 800.0f) {
+			//constantly update targeting beam
+			targetBeam ();
 
-		//activate main beam in intervals
-		if (time < 0) {
-			distanceFromTarget = Vector3.Distance (gameObject.transform.position, target.position);
-			if (distanceFromTarget <= 600.0f) {
+			//activate main beam in intervals
+			if (time < 0) {
 				StartCoroutine ("FireLaser");
 				time = timeBetweenShots;
 			}
+			time -= Time.deltaTime;
 		}
-		time -= Time.deltaTime;
 	}
 
 	//generate a line between the snipers cannon and the point its targeting
