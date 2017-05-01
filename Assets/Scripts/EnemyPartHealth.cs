@@ -77,7 +77,9 @@ public class EnemyPartHealth : MonoBehaviour {
 			EnemyPartHealth parentScript = partParent.GetComponent<EnemyPartHealth> ();
 			parentScript.partHP -= HPfromParent;
 		} else { //we have killed the core, remove entire prefab
+			if (deathScript != null) {
 				deathScript.afterDeath ();
+			}
 		}	
 	}
 }
