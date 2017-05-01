@@ -8,6 +8,8 @@ public class HUDOptions : MonoBehaviour {
 
 	public Slider musicSlider;
 	public AudioSource music;
+	bool active = false;
+	float t;
 	// Use this for initialization
 	void Start () {
 		
@@ -24,11 +26,36 @@ public class HUDOptions : MonoBehaviour {
 			musicSlider.value = PlayerPrefs.GetFloat("dialogueVol") * 20f;
 		}
 		musicSlider.onValueChanged.AddListener(changeVolume);
+		t=0;
+		if(musicSlider.name == "musicSlider")
+		{
+			active = true;
+		}
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		
+		t+=Time.deltaTime;
+		if(transform.childCount > 4)
+		{
+			active = true;
+		}
+		else
+		{
+			active = false;
+		}
+		if(!active){return;}
+		float horizontal = Input.GetAxis ("Horizontal");
+		if(horizontal <= -1f &&  t > .3f)
+		{
+			musicSlider.value -= 1f;
+			t = 0;
+		}
+		else if(horizontal >= 1f &&  t > .3f)
+		{
+			musicSlider.value += 1f;
+			t = 0;
+		}
 	}
 	
 	void changeVolume(float value)

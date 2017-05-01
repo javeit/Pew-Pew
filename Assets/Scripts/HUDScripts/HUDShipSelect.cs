@@ -20,15 +20,16 @@ public class HUDShipSelect : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if(Input.GetKeyDown("down") && startSelected == false)
+		float verticle = Input.GetAxis ("Vertical");
+		if((Input.GetKeyDown("down") || verticle <= -1f ) && startSelected == false)
 		{
 			StartSelected();
 		}
-		else if(Input.GetKeyDown("up") && startSelected)
+		else if((Input.GetKeyDown("up") || verticle >= 1f) && startSelected)
 		{
 			StartDeselected();
 		}
-		else if(Input.GetKeyDown("return") && startSelected)
+		else if((Input.GetKeyDown("return") || Input.GetKeyDown("joystick button 0")) && startSelected)
 		{
 			StartGame();
 		}

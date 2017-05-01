@@ -77,7 +77,7 @@ public class HUDScript : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () { 
-		if(Input.GetKeyDown("escape"))
+		if(Input.GetKeyDown("escape") || Input.GetKeyDown("joystick button 7"))
 		{
 			PauseGame();
 		}
@@ -162,6 +162,7 @@ public class HUDScript : MonoBehaviour {
 	
 	public void RestartGame()
 	{
+		PauseGame();
 		livesLeft = 2;
 		SceneManager.LoadScene ("Ship Select",LoadSceneMode.Single);
 	}

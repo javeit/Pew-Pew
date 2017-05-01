@@ -12,6 +12,14 @@ public class ButtonSelectScript : MonoBehaviour {
 		
 	}
 	
+	void Update ()
+	{
+		if(Input.GetKeyDown("joystick button 1"))
+		{
+			thisButton.onClick.Invoke();
+		}
+	}
+	
 	// Update is called once per frame
 	public void overButton()
 	{
