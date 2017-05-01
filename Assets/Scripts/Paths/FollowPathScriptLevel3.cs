@@ -41,7 +41,7 @@ public class FollowPathScriptLevel3 : MonoBehaviour {
 			transform.rotation = Quaternion.Euler (new Vector3 (90, 180, 90));
 		}
 		time -= Time.deltaTime;
-		Debug.Log (time);
+		//Debug.Log (time);
 
 		if (boss.pathChange && !onStrafe) {
 			pulledOut.enabled = true;

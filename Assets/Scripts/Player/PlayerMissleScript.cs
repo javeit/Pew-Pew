@@ -8,6 +8,7 @@ public class PlayerMissleScript : MonoBehaviour {
 	public MissleScript misslePrefab;
 	public Transform pathObject;
 	public float timeBetweenShots;
+	public Transform barrel;
 
 	private HUDScript hudScript;
 	private float timeToFire;
@@ -25,7 +26,7 @@ public class PlayerMissleScript : MonoBehaviour {
 
 				MissleScript newMissle = Instantiate (misslePrefab, pathObject);
 
-				newMissle.transform.localPosition = transform.parent.localPosition + new Vector3 (0f, 0f, 2.5f);
+				newMissle.transform.position = barrel.position;
 				newMissle.transform.rotation = Quaternion.LookRotation (transform.forward);
 
 				if (GameObject.FindWithTag ("Enemy") != null) {

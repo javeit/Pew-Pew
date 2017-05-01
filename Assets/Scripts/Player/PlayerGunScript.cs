@@ -8,6 +8,7 @@ public class PlayerGunScript : MonoBehaviour {
 	public GameObject bulletPrefab;
 	public Transform pathObject;
 	public float timeBetweenShots;
+	public Transform barrel;
 
 	private HUDScript hudScript;
 	private float timeToFire;
@@ -24,7 +25,7 @@ public class PlayerGunScript : MonoBehaviour {
 			if (timeToFire <= 0) {
 				GameObject newBullet = Instantiate (bulletPrefab, pathObject);
 				shotSound.Play();
-				newBullet.transform.localPosition = transform.parent.localPosition + new Vector3 (0f, 0f, 2.5f);
+				newBullet.transform.position = barrel.position;
 				newBullet.transform.rotation = Quaternion.LookRotation (transform.forward);
 				timeToFire = timeBetweenShots;
 			} else {
