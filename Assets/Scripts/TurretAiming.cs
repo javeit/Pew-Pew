@@ -6,11 +6,11 @@ public class TurretAiming : MonoBehaviour {
     GameObject player;
     public GameObject turret;
     //Camera camera;
-    Component[] list;
+    MonoBehaviour fire;
 	void Start () {
         player = GameObject.FindGameObjectWithTag("Player");
-       // camera = Camera.main;
-        list = turret.GetComponents<MonoBehaviour>();
+        // camera = Camera.main;
+        fire = (MonoBehaviour)turret.GetComponent("EnemyWeaponScript");
     }
 
     // Update is called once per frame
@@ -28,18 +28,12 @@ public class TurretAiming : MonoBehaviour {
 
     void OnBecameInvisible()
     {
-        foreach (MonoBehaviour script in list)
-        {
-            script.enabled = false;
-        }
+        fire.enabled = false;
     }
 
     void OnBecameVisible()
     {
 
-        foreach (MonoBehaviour script in list)
-        {
-            script.enabled = true;
-        }
+        fire.enabled = true;
     }
 }
