@@ -23,11 +23,7 @@ public class HUDScript : MonoBehaviour {
 	private bool paused = false;
 	private int heartsLeft = 2;
 	static private int livesLeft = 2;
-	private float dialogueRightX = 481;
-	private float dialogueLeftX = 338;
 	private float t;
-	private Vector3 oldPos;
-	private Vector3 target;
 	private Vector3 startPosition;
 	private GameObject[] shipModels = new GameObject[3];
 	private int index;
@@ -77,7 +73,6 @@ public class HUDScript : MonoBehaviour {
 		}
 		Button btn = pauseButton.GetComponent<Button>();
 		btn.onClick.AddListener(PauseGame);
-		oldPos = target = dialogueBox.GetComponent<RectTransform>().anchoredPosition;
 	}
 	
 	// Update is called once per frame
@@ -171,7 +166,8 @@ public class HUDScript : MonoBehaviour {
 		SceneManager.LoadScene ("Ship Select",LoadSceneMode.Single);
 	}
 	public void QuitGame()
-	{}
+	{
+	}
 	public void setIndex(int i)
 	{
 		selectBox.transform.SetParent(pauseButtons[i].transform,false);
