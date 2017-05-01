@@ -16,6 +16,7 @@ public class HUDScript : MonoBehaviour {
 	public GameObject[] pauseButtons;
 	private AudioSource music;
 	private AudioSource laserShot;
+	private AudioSource gruntShot;
 	private GameObject pauseButtonGo;
 	private bool paused = false;
 	private int heartsLeft = 2;
@@ -35,6 +36,8 @@ public class HUDScript : MonoBehaviour {
 		music.volume = PlayerPrefs.GetFloat("musicVol")/6f;
 		laserShot = GameObject.Find("Player Aim").GetComponent<AudioSource>();
 		laserShot.volume = PlayerPrefs.GetFloat("fxVol");
+		gruntShot = GameObject.Find ("GruntSound").GetComponent<AudioSource> ();
+		gruntShot.volume = PlayerPrefs.GetFloat("fxVol");
 		Time.timeScale = 1.0F;
 		int shipSelect = PlayerPrefs.GetInt("ShipSelect");
 		shipModels[0] = GameObject.Find("PlayerShip_Crystal");

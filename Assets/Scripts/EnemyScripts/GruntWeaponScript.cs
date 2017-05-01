@@ -13,11 +13,13 @@ public class GruntWeaponScript: MonoBehaviour {
 	private Transform pathObject;
 	private float time;
 	private float distanceFromTarget;
+	private AudioSource gruntSound;
 
 	void Start () {
 		pathObject = GameObject.FindWithTag ("PathObject").transform;
 		target = GameObject.FindWithTag ("GruntTarget").transform;
 		time = delayTime;
+		gruntSound = GameObject.Find ("GruntSound").GetComponent<AudioSource> ();
 	}
 
 	void Update () {
@@ -29,6 +31,7 @@ public class GruntWeaponScript: MonoBehaviour {
 				newWeapon.transform.position = barrel.position;
 				newWeapon.transform.rotation = Quaternion.LookRotation (target.position - barrel.position);
 				time = timeBetweenShots;
+				gruntSound.Play ();
 			}
 		}
 		time -= Time.deltaTime;
