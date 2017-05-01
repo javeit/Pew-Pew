@@ -37,7 +37,7 @@ public class PlayerController : MonoBehaviour {
 		rigidBody.MovePosition (transform.position + (transform.up * verticalMoveSpeed * Time.fixedDeltaTime) + (transform.right * horizontalMoveSpeed * Time.fixedDeltaTime));
 	}
 
-	void OnCollisionEnter(Collision col){
+	void OnTriggerEnter(Collider col){
 		wasHit = true;
 	}
 }
