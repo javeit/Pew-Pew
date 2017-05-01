@@ -13,6 +13,8 @@ public class SniperWeaponScript : MonoBehaviour {
 	private Transform target;
 	private float distanceFromTarget;
 
+	public PlayerController hurtthis;
+
 	private float time;
 
 
@@ -57,13 +59,13 @@ public class SniperWeaponScript : MonoBehaviour {
 			if (hit.rigidbody) {
 				if (hit.rigidbody.gameObject.tag == "Player") {
 					//CHANGE TO REMOVE HP
-					Destroy (hit.rigidbody.gameObject);
+					hurtthis.wasHit = true;
 				}
 			}
 			if (hit.collider) {
 				if (hit.collider.tag == "Player") {
 					//CHANGE TO REMOVE HP
-					Destroy (hit.collider.gameObject);
+					hurtthis.wasHit = true;
 				}
 			}
 		} else {
