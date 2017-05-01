@@ -6,7 +6,6 @@ using UnityEngine.SceneManagement;
 
 public class HUDShipSelect : MonoBehaviour {
 
-	Button[] buttons;
 	public Button startButton;
 	public Button backButton;
 	public LRSelectBoxScript selectScript;
@@ -15,7 +14,6 @@ public class HUDShipSelect : MonoBehaviour {
 	bool startSelected = false;
 	// Use this for initialization
 	void Start () {
-		buttons = this.gameObject.transform.GetChild(0).GetComponentsInChildren<Button>();
 		startButton.onClick.AddListener(StartGame);
 		backButton.onClick.AddListener(GoBack);
 	}

@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class HUDOptionsCanv : MonoBehaviour {
 
-	Slider activeSlider;
+	//Slider activeSlider;
 	public GameObject selectBox;
 	// Use this for initialization
 	void Start () {
@@ -20,7 +20,7 @@ public class HUDOptionsCanv : MonoBehaviour {
 	
 	public void SetActiveSlider(Slider s)
 	{
-		activeSlider = s;
+		//activeSlider = s;
 		selectBox.transform.SetParent(s.transform,false);
 	}
 	
