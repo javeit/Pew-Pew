@@ -14,10 +14,12 @@ public class PlayerMissleScript : MonoBehaviour {
 	private float timeToFire;
 	private GameObject[] targets;
 	private GameObject missleTarget;
+	private AudioSource missileSound;
 
 	void Start () {
 		hudScript = GameObject.Find("CanvasMain").GetComponent<HUDScript>();
 		timeToFire = 0;
+		missileSound = GameObject.Find ("MissileLaunchSound").GetComponent<AudioSource> ();
 	}
 
 	void Update () {
@@ -44,6 +46,8 @@ public class PlayerMissleScript : MonoBehaviour {
 					newMissle.target = null;
 				}
 				timeToFire = timeBetweenShots;
+
+				missileSound.Play ();
 			}
 		}
 		timeToFire -= Time.deltaTime;

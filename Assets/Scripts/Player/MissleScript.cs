@@ -9,9 +9,10 @@ public class MissleScript : MonoBehaviour {
 	public float liveTime;
 	public GameObject target;
 
+	private AudioSource explodeSound;
+
 	void Start(){
-		//GetComponent<Rigidbody> ().velocity = fireDirection * moveSpeed;
-		//transform.parent = null;
+		explodeSound = GameObject.Find ("MissileExplodeSound").GetComponent<AudioSource> ();
 	}
 
 	void Update () {
@@ -20,6 +21,7 @@ public class MissleScript : MonoBehaviour {
 			transform.rotation = Quaternion.LookRotation (transform.forward + (target.transform.position - transform.position) * aimSpeed);
 
 			if (liveTime < 0) {
+				explodeSound.Play ();
 				Destroy (gameObject);
 			}
 			liveTime -= Time.deltaTime;
@@ -30,6 +32,7 @@ public class MissleScript : MonoBehaviour {
 
 	void OnCollisionEnter(Collision col){
 		//Debug.Log ("hit something");
+		explodeSound.Play();
 		Destroy (gameObject);
 	}
 }

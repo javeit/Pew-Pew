@@ -11,11 +11,13 @@ public class Missile : MonoBehaviour
     int timer;
     string State;
 
+	private AudioSource explodeSound;
 
     void Start()
     {
         target = GameObject.FindGameObjectWithTag("MissileTarget");
         path = GameObject.FindGameObjectWithTag("MainCamera");
+		explodeSound = GameObject.Find ("MissileExplodeSound").GetComponent<AudioSource> ();
 
         timer = 0;
         transform.parent = path.transform;
@@ -55,6 +57,7 @@ public class Missile : MonoBehaviour
     //Upon Hitting our target we should disable the missile
     void OnTriggerEnter(Collider other)
     {
+		explodeSound.Play ();
   
         if (other.CompareTag("MissileTarget"))
             State = "DISABLE";

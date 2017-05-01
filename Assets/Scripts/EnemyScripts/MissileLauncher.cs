@@ -18,6 +18,7 @@ public class MissileLauncher : MonoBehaviour
 	//missile fire interval
 	public float timeBetweenShots;
 	private float time;
+	private AudioSource missilSound;
 
     //Start, do I need to explain this?
     void Start()
@@ -25,6 +26,7 @@ public class MissileLauncher : MonoBehaviour
         path = GameObject.FindGameObjectWithTag("PathObject");
         player = GameObject.FindGameObjectWithTag("Player");
         fire = (MonoBehaviour)GetComponent("GruntWeaponScript");
+		missilSound = GameObject.Find ("MissileLaunchSound").GetComponent<AudioSource> ();
         State = "IDLE";
         moveSide = 0;
         rand = new Vector3(Random.Range(-6f, 6f), Random.Range(-15f, 15f), Random.Range(-6f, 6f));
@@ -103,6 +105,7 @@ public class MissileLauncher : MonoBehaviour
     {
         Transform rocketClone = (Transform)Instantiate(rocket,transform.position + (path.transform.up * 10), transform.rotation);
         rocketClone.transform.position = transform.position + (path.transform.up *10);
+		missilSound.Play ();
      }
 
 
