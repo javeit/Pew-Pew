@@ -15,10 +15,8 @@ public class EnemyBehavior : MonoBehaviour
     int moveSide;
 
 	public GameObject[] visibleBits;
-	public GruntWeaponScript[] MiniGunsEquipped;
-	public SniperWeaponScript SniperGun;
+	public GruntWeaponScript[] weaponsEquipped;
 	public float shipWeight = 1.0f;
-	public float faceSpeed = 1.0f;
 	private bool seen;
 	private bool shooting;
 
@@ -38,11 +36,8 @@ public class EnemyBehavior : MonoBehaviour
 		}
 
 		//disable all weapon scripts
-		foreach (GruntWeaponScript pewpew in MiniGunsEquipped) {
+		foreach (GruntWeaponScript pewpew in weaponsEquipped) {
 			pewpew.enabled = false;
-		}
-		if (SniperGun != null) {
-			SniperGun.enabled = false;
 		}
 
     }
@@ -53,7 +48,7 @@ public class EnemyBehavior : MonoBehaviour
 
 		if (State.Equals ("ACTIVE")) {
 			//When it activates, it moves to the middle of the screen
-			iTween.LookUpdate (gameObject, iTween.Hash ("looktarget", player.transform.position, "speed", 1.0f*faceSpeed));
+			iTween.LookUpdate (gameObject, iTween.Hash ("looktarget", player.transform.position, "speed", 1.0f));
 			goal = path.transform.position + (path.transform.forward * 30) + rand;
 
 			iTween.MoveUpdate (gameObject, iTween.Hash ("position", goal, "time", 0.5f*shipWeight));
@@ -68,7 +63,7 @@ public class EnemyBehavior : MonoBehaviour
 
 		} else if (State.Equals ("ATTACK")) {
 			//Moves back and forth in front of the player
-			iTween.LookUpdate (gameObject, iTween.Hash ("looktarget", player.transform.position, "speed", 1.0f*faceSpeed));
+			iTween.LookUpdate (gameObject, iTween.Hash ("looktarget", player.transform.position, "speed", 1.0f));
 			if (timer > 350)
                 //State = "DISABLE";
             timer = timer + 1;
@@ -84,15 +79,11 @@ public class EnemyBehavior : MonoBehaviour
 				moveSide = 0;
 
 			//and starts shooting
-			foreach (GruntWeaponScript pewpew in MiniGunsEquipped) {
+			foreach (GruntWeaponScript pewpew in weaponsEquipped) {
 				if (pewpew != null) {
 					pewpew.enabled = true;
 				}
 			}
-			if (SniperGun != null) {
-				SniperGun.enabled = true;
-			}
-
 		} else if (State.Equals ("DISABLE")) {
 			//eventually deparents the enemy
 
@@ -104,7 +95,7 @@ public class EnemyBehavior : MonoBehaviour
 			if (timer < 310)
 				disable ();
 		} else if (State.Equals ("IDLE")) {
-			iTween.LookUpdate(gameObject, iTween.Hash("looktarget", player.transform.position, "speed", 1.0f*faceSpeed));
+			iTween.LookUpdate(gameObject, iTween.Hash("looktarget", player.transform.position, "speed", 1.0f));
 		}
 
     }
