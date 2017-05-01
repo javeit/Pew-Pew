@@ -17,6 +17,10 @@ public class LVL2DialogueScript : MonoBehaviour {
 		moveScript = GameObject.Find("Dialogue").GetComponent<MoveDialogueScript>();
 		delays = new float[dialogue.Length,2];
 		delays[0,0] = 2f;
+		delays[1,0] = 16f;
+		delays[2,0] = dialogue[1].clip.length;
+		delays[3,0] = dialogue[2].clip.length;
+		delays[4,0] = dialogue[3].clip.length;
 	}
 	
 	// Update is called once per frame 
@@ -28,11 +32,15 @@ public class LVL2DialogueScript : MonoBehaviour {
 			{
 				moveScript.SetDialogueOut(0);
 			}
+			else if(count == 1)
+			{
+				moveScript.SetDialogueOut(1);
+			}
 			dialogue[count].volume = volume;
 			dialogue[count].Play();
 			count++;
 			time = 0f;
-			if(count == dialogue.Length)
+			if(count == 1 || count == dialogue.Length)
 			{
 				moveScript.SetDialogueIn(dialogue[count -1].clip.length);
 			}
