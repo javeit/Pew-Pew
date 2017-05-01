@@ -73,16 +73,6 @@ public class HUDScript : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () { 
-		t += Time.deltaTime/timeToReachTarget;
-		dialogueBox.GetComponent<RectTransform>().anchoredPosition = Vector3.Lerp(startPosition,target,t);
-		if(Time.timeSinceLevelLoad >= 5&& Time.timeSinceLevelLoad <6)
-		{
-			MoveObject(new Vector3(dialogueRightX,oldPos.y,oldPos.z),1.0f);
-		}
-		if(Time.timeSinceLevelLoad >= 10&& Time.timeSinceLevelLoad <11)
-		{
-			MoveObject(new Vector3(dialogueLeftX,oldPos.y,oldPos.z),1.0f);
-		}
 		if(Input.GetKeyDown("escape"))
 		{
 			PauseGame();
@@ -164,14 +154,6 @@ public class HUDScript : MonoBehaviour {
 			weaponBoxes[2].SetActive(true);
 		}
 		
-	}
-	
-	public void MoveObject(Vector3 destination,float time)
-	{
-		t = 0;
-        startPosition = dialogueBox.GetComponent<RectTransform>().anchoredPosition;
-        timeToReachTarget = time;
-        target = destination; 
 	}
 	
 	public void RestartGame()

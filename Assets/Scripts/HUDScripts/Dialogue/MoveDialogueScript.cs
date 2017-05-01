@@ -11,6 +11,7 @@ public class MoveDialogueScript : MonoBehaviour {
 	float timeToReachTarget;
 	private float dialogueRightX = 481;
 	private float dialogueLeftX = 338;
+	public GameObject[] headShots;
 	// Use this for initialization
 	void Start () {
 		startPosition = target = transform.GetComponent<RectTransform>().anchoredPosition;
@@ -22,18 +23,37 @@ public class MoveDialogueScript : MonoBehaviour {
              t += Time.deltaTime/timeToReachTarget;
              transform.GetComponent<RectTransform>().anchoredPosition = Vector3.Lerp(startPosition, target, t);
      }
-     public void SetDialogueOut()
+     public void SetDialogueOut(int i)
      {
+			setActive(i);
             t = 0;
             startPosition = transform.GetComponent<RectTransform>().anchoredPosition;
-            timeToReachTarget = 4f;
+            timeToReachTarget = 1f;
             target = new Vector3(dialogueRightX,startPosition.y,startPosition.z); 
      }
-	 public void SetDialogueIn(Vector3 destination, float time)
+	 public void SetDialogueIn(float f)
      {
-            t = 0;
-            startPosition = transform.GetComponent<RectTransform>().anchoredPosition;
-            timeToReachTarget = 4f;
-            target = new Vector3(dialogueLeftX,startPosition.y,startPosition.z); 
+		StartCoroutine(SDI(f));
      }
+	 IEnumerator SDI(float f)
+	 {
+		yield return new WaitForSeconds(f);
+        t = 0;
+        startPosition = transform.GetComponent<RectTransform>().anchoredPosition;
+        timeToReachTarget = 1f;
+        target = new Vector3(dialogueLeftX,startPosition.y,startPosition.z); 
+	 }
+	 void setActive(int i)
+	 {
+		 if(i == 0)
+		 {
+			 headShots[0].SetActive(true);
+			 headShots[1].SetActive(false);
+		 }
+		 else if(i == 01)
+		 {
+			 headShots[0].SetActive(false);
+			 headShots[1].SetActive(true);
+		 }
+	 }
 }
