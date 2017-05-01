@@ -32,7 +32,7 @@ public class HUDScript : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		music = GameObject.Find("Main Camera").GetComponent<AudioSource>();
-		music.volume = PlayerPrefs.GetFloat("musicVol");
+		music.volume = PlayerPrefs.GetFloat("musicVol")/6f;
 		laserShot = GameObject.Find("Player Aim").GetComponent<AudioSource>();
 		laserShot.volume = PlayerPrefs.GetFloat("fxVol");
 		Time.timeScale = 1.0F;

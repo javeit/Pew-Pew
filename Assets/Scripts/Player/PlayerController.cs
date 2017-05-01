@@ -38,7 +38,7 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	void OnTriggerEnter(Collider col){
-		if(col.tag == "playerGun" || col.tag == "playerMissile" || col.tag == "enemyBox")
+		if(col.tag == "playerGun" || col.tag == "playerMissile" || col.tag == "EnemyBox" )
 		{
 			return;
 		}
