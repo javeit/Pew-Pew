@@ -166,7 +166,8 @@ public class HUDScript : MonoBehaviour {
 		SceneManager.LoadScene ("Ship Select",LoadSceneMode.Single);
 	}
 	public void QuitGame()
-	{}
+	{
+	}
 	public void setIndex(int i)
 	{
 		selectBox.transform.SetParent(pauseButtons[i].transform,false);
