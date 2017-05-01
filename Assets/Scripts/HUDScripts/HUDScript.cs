@@ -158,6 +158,7 @@ public class HUDScript : MonoBehaviour {
 	
 	public void RestartGame()
 	{
+		livesLeft = 2;
 		SceneManager.LoadScene ("Ship Select",LoadSceneMode.Single);
 	}
 	public void QuitGame()

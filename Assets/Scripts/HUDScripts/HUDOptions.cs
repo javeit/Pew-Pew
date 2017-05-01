@@ -19,6 +19,10 @@ public class HUDOptions : MonoBehaviour {
 		{
 			musicSlider.value = PlayerPrefs.GetFloat("fxVol") * 20f;
 		}
+		else if(musicSlider.name == "dialogueSlider")
+		{
+			musicSlider.value = PlayerPrefs.GetFloat("dialogueVol") * 20f;
+		}
 		musicSlider.onValueChanged.AddListener(changeVolume);
 	}
 	
@@ -36,6 +40,10 @@ public class HUDOptions : MonoBehaviour {
 		else if(musicSlider.name == "fxSlider")
 		{
 			PlayerPrefs.SetFloat("fxVol", musicSlider.value / 20f);
+		}
+		else if(musicSlider.name == "dialogueSlider")
+		{
+			PlayerPrefs.SetFloat("dialogueVol", musicSlider.value / 20f);
 		}
 		music.Stop();
 		music.volume = musicSlider.value / 20;
