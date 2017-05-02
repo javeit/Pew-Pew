@@ -20,7 +20,7 @@ public class SniperWeaponScript : MonoBehaviour {
 
 
 	void Start () {
-		target = GameObject.FindWithTag ("GruntTarget").transform;
+		target = GameObject.FindWithTag ("Player").transform;
 		time = delayTime;
 		lineA.enabled = false;
 		lineA.enabled = false;
