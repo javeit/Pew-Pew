@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-public class HUDShipSelect : MonoBehaviour {
+public class HUDLevelSelect : MonoBehaviour {
 
 	public Button startButton;
 	public Button backButton;
@@ -38,13 +38,26 @@ public class HUDShipSelect : MonoBehaviour {
 	
 	void StartGame()
 	{
-		Debug.Log(selectScript.getIndex());
-		PlayerPrefs.SetInt("ShipSelect", selectScript.getIndex());
-		SceneManager.LoadScene ("Level Select",LoadSceneMode.Single);
+		//PlayerPrefs.SetInt("ShipSelect", selectScript.getIndex());
+		if(selectScript.getIndex() == 0)
+		{
+			SceneManager.LoadScene ("Test Scene",LoadSceneMode.Single);
+		}
+		else if(selectScript.getIndex() == 1)
+		{
+			SceneManager.LoadScene ("Level2",LoadSceneMode.Single);
+		}
+		else if(selectScript.getIndex() == 2)
+		{
+			SceneManager.LoadScene ("Level3",LoadSceneMode.Single);
+		}
+		else{
+			SceneManager.LoadScene ("Test Scene",LoadSceneMode.Single);
+		}
 	}
 	void GoBack()
 	{
-		SceneManager.LoadScene ("Main Menu",LoadSceneMode.Single);
+		SceneManager.LoadScene ("Ship Select",LoadSceneMode.Single);
 	}
 	public void StartSelected()
 	{
