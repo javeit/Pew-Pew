@@ -9,6 +9,7 @@ public class HUDScript : MonoBehaviour {
 	public Button pauseButton;
 	public GameObject pauseMenu;
 	public GameObject[] hearts;
+	public GameObject shield;
 	public GameObject[] lives;
 	public GameObject[] weaponBoxes;
 	public GameObject dialogueBox;
@@ -27,7 +28,9 @@ public class HUDScript : MonoBehaviour {
 	private Vector3 startPosition;
 	private GameObject[] shipModels = new GameObject[3];
 	private int index;
+	private bool shieldUp = true;
 	float timeToReachTarget;
+	float timeSinceShieldGone;
 	// Use this for initialization
 	void Start () {
 		music = GameObject.Find("Main Camera").GetComponent<AudioSource>();
@@ -77,6 +80,12 @@ public class HUDScript : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () { 
+		timeSinceShieldGone += Time.deltaTime;
+		if(timeSinceShieldGone > 5f && shieldUp == false)
+		{
+			shield.SetActive(true);
+			shieldUp = true;
+		}
 		if(Input.GetKeyDown("escape") || Input.GetKeyDown("joystick button 7"))
 		{
 			PauseGame();
@@ -127,6 +136,13 @@ public class HUDScript : MonoBehaviour {
 	}
 	public void decrimentHearts()
 	{
+			if(shieldUp = true)
+			{
+				shield.SetActive(false);
+				timeSinceShieldGone = 0f;
+				shieldUp = false;
+				return;
+			}
 			if(heartsLeft >= 0)
 			{
 				Destroy(hearts[heartsLeft]);
