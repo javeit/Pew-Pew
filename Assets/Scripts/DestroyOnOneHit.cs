@@ -9,4 +9,10 @@ public class DestroyOnOneHit : MonoBehaviour {
 			Destroy (gameObject);
 		}
 	}
+
+	void OnTriggerEnter(Collider col){
+		if (col.gameObject.tag != "EnemyBox"){
+			Destroy (gameObject);
+		}
+	}
 }

@@ -36,6 +36,22 @@ public class CoreColor : MonoBehaviour {
 			}
 		}
 
+	void OnTriggerEnter(Collider col2) {
+		//if hit by playerBeam (minus 1000 hp)
+		if (col2.gameObject.tag == "playerBeam") {
+			coreHP -= 50;
+		}
+
+		//if hit by playerMissile (minus 30hp)
+		else if (col2.gameObject.tag == "playerMissile") {
+			coreHP -= 15;
+		}
+		//if hit by any object (minus 1 hp)
+		else {
+			coreHP -= 1;
+		}
+	}
+
 		//Check on part HP
 		void Update () {
 
