@@ -50,7 +50,6 @@ public class EnemyBehavior : MonoBehaviour
     //the basic state machine for our grunts
     void Update()
     {
-
 		if (State.Equals ("ACTIVE")) {
 			//When it activates, it moves to the middle of the screen
 			iTween.LookUpdate (gameObject, iTween.Hash ("looktarget", player.transform.position, "speed", 1.0f));

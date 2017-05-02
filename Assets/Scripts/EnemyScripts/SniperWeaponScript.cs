@@ -16,13 +16,18 @@ public class SniperWeaponScript : MonoBehaviour {
 	public PlayerController hurtthis;
 
 	private float time;
+	public float delayTime = 0.0f;
 
 
 	void Start () {
 		target = GameObject.FindWithTag ("GruntTarget").transform;
+		time = delayTime;
+		lineA.enabled = false;
+		lineA.enabled = false;
 	}
 
 	void Update () {
+		//check range
 		distanceFromTarget = Vector3.Distance (gameObject.transform.position, target.position);
 		if (distanceFromTarget <= 800.0f) {
 			//constantly update targeting beam
