@@ -33,7 +33,7 @@ public class FollowPathScriptLevel3 : MonoBehaviour {
 			iTween.MoveTo(gameObject, iTween.Hash("path", iTweenPath.GetPath("Trench Run"), "time", trenchRunTime, "orientToPath", true, "easetype", iTween.EaseType.linear));
 			inTrench = true;
 		}
-		if (time < toCoreTime + 0.01 && !toCore && boss.pathChange) {
+		if (time < toCoreTime + 2 && !toCore && boss.pathChange) {
 			toCore = true;
 			iTween.MoveTo (gameObject, iTween.Hash ("path", iTweenPath.GetPath ("Path to Core"), "time", toCoreTime, "easetype", iTween.EaseType.linear, "orientToPath", true));
 		}
