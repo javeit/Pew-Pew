@@ -5,10 +5,8 @@ using UnityEngine;
 public class DestroyOnOneHit : MonoBehaviour {
 
 	void OnCollisionEnter(Collision col){
-		//Debug.Log ("triggered");
-		//if (col.gameObject.tag == "playerGun" || col.gameObject.tag == "playerBeam" || col.gameObject.tag == "playerMissile") {
-			//Debug.Log ("enemy hit");
+		if (col.gameObject.tag != "EnemyBox"){
 			Destroy (gameObject);
-		//}
+		}
 	}
 }
