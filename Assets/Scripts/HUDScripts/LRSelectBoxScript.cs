@@ -19,12 +19,12 @@ public class LRSelectBoxScript : MonoBehaviour {
 		t += Time.deltaTime;
 		index = Array.IndexOf(buttons,this.transform.parent.gameObject.GetComponent<Button>());
 		float horizontalMove = Input.GetAxis ("Horizontal");
-		if((Input.GetKeyDown("left") || horizontalMove >= 1f) && index != buttons.Length -1 && t > .3f)
+		if((Input.GetKeyDown("right") || horizontalMove >= 1f) && index != buttons.Length -1 && t > .3f)
 		{
 			this.transform.SetParent(buttons[index + 1].transform,false);
 			t = 0;
 		}
-		else if((Input.GetKeyDown("right") || horizontalMove <= -1f) && index != 0 && t > .3f)
+		else if((Input.GetKeyDown("left") || horizontalMove <= -1f) && index != 0 && t > .3f)
 		{
 			this.transform.SetParent(buttons[index - 1].transform,false);
 			t = 0;

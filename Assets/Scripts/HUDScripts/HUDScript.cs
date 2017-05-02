@@ -162,7 +162,9 @@ public class HUDScript : MonoBehaviour {
 	
 	public void RestartGame()
 	{
-		PauseGame();
+		pauseMenu.SetActive(false);
+		paused = false;
+		Time.timeScale = 1.0F;
 		livesLeft = 2;
 		SceneManager.LoadScene ("Ship Select",LoadSceneMode.Single);
 	}
