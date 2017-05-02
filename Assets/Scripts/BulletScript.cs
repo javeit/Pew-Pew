@@ -21,7 +21,11 @@ public class BulletScript : MonoBehaviour {
 		liveTime -= Time.deltaTime;
 	}
 		
-	void OnCollisionEnter(Collision col){
+	void OnTriggerEnter(Collider col){
+		if(col.name == "Player" || col.tag == "EnemyBox")
+		{
+			return;
+		}
 		Destroy (gameObject);
 	}
 
