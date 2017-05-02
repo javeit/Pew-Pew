@@ -28,9 +28,9 @@ public class HUDScript : MonoBehaviour {
 	private Vector3 startPosition;
 	private GameObject[] shipModels = new GameObject[3];
 	private int index;
-	private bool shieldUp = true;
+	public bool shieldUp = true;
 	float timeToReachTarget;
-	float timeSinceShieldGone;
+	float timeSinceHit;
 	// Use this for initialization
 	void Start () {
 		music = GameObject.Find("Main Camera").GetComponent<AudioSource>();
@@ -80,8 +80,8 @@ public class HUDScript : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () { 
-		timeSinceShieldGone += Time.deltaTime;
-		if(timeSinceShieldGone > 5f && shieldUp == false)
+		timeSinceHit += Time.deltaTime;
+		if(timeSinceHit > 5f && shieldUp == false)
 		{
 			shield.SetActive(true);
 			shieldUp = true;
@@ -136,10 +136,10 @@ public class HUDScript : MonoBehaviour {
 	}
 	public void decrimentHearts()
 	{
-			if(shieldUp = true)
+			timeSinceHit = 0f;
+			if(shieldUp == true)
 			{
 				shield.SetActive(false);
-				timeSinceShieldGone = 0f;
 				shieldUp = false;
 				return;
 			}
@@ -151,6 +151,12 @@ public class HUDScript : MonoBehaviour {
 			if(heartsLeft < 0)
 			{
 				livesLeft--;
+				if(livesLeft < 0)
+				{
+					Debug.Log("Got To Here");
+					RestartGame();
+					return;
+				}
 				heartsLeft = 2;
 				SceneManager.LoadScene (Application.loadedLevel,LoadSceneMode.Single);
 			}
