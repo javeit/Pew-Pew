@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BulletScript : MonoBehaviour {
+public class PlayerBullet: MonoBehaviour {
 
 	public float moveSpeed;
 	public float liveTime;
@@ -11,16 +11,21 @@ public class BulletScript : MonoBehaviour {
 		transform.position += transform.forward.normalized * moveSpeed;
 
 		if (liveTime < 0) {
-			Destroy (gameObject);
+			Destroy ();
 		}
 		liveTime -= Time.deltaTime;
 	}
-		
+
 	void OnTriggerEnter(Collider col){
 		if(col.name == "Player" || col.tag == "EnemyBox")
 		{
 			return;
 		}
-		Destroy (gameObject);
+		Destroy ();
+	}
+
+	void Destroy(){
+		//Debug.Log ("Setting bullet inactive");
+		gameObject.SetActive (false);
 	}
 }

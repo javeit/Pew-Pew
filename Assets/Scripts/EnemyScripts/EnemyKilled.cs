@@ -18,7 +18,7 @@ public class EnemyKilled : MonoBehaviour {
 	IEnumerator wait2secs() {
 		yield return new WaitForSeconds (2);
 		//kill the entire ship prefab
-		Destroy(gameObject);
+		gameObject.SetActive(false);
 	}
 
 }
