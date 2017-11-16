@@ -12,7 +12,7 @@ public class FollowPathScriptLevel3 : MonoBehaviour {
 	public Camera pulledOut;
 	public EnemyPartHealth boss;
 	public PlayerGunScript gun;
-	public PlayerBullet strafeBulletPrefab;
+	public GameObject strafeBulletPrefab;
 
 	private float time;
 	private bool inTrench;
@@ -48,7 +48,7 @@ public class FollowPathScriptLevel3 : MonoBehaviour {
 		if (boss.pathChange && !onStrafe) {
 			pulledOut.enabled = true;
 			mainCamera.enabled = false;
-			//gun.bulletPrefab = strafeBulletPrefab;
+			gun.bulletPrefab = strafeBulletPrefab;
 		} else {
 			pulledOut.enabled = false;
 			mainCamera.enabled = true;

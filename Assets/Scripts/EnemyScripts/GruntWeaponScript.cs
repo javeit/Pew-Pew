@@ -4,23 +4,22 @@ using UnityEngine;
 
 public class GruntWeaponScript: MonoBehaviour {
 
+	public GameObject weapon;
 	public float delayTime;
 	public float timeBetweenShots;
 	public Transform barrel;
 
-	Transform target;
-	Transform pathObject;
-	float time;
-	float distanceFromTarget;
-	AudioSource gruntSound;
-	ObjectPoolerScript bulletPool;
+	private Transform target;
+	private Transform pathObject;
+	private float time;
+	private float distanceFromTarget;
+	private AudioSource gruntSound;
 
 	void Start () {
 		pathObject = GameObject.FindWithTag ("PathObject").transform;
 		target = GameObject.FindWithTag ("GruntTarget").transform;
 		time = delayTime;
 		gruntSound = GameObject.Find ("GruntSound").GetComponent<AudioSource> ();
-		bulletPool = GameObject.Find ("ObjectPool").GetComponent<EnemyBulletPoolerScript> ();
 	}
 
 	void Update () {
@@ -28,13 +27,9 @@ public class GruntWeaponScript: MonoBehaviour {
 			//if within a reasonable range, fire a bullet
 			distanceFromTarget = Vector3.Distance (gameObject.transform.position, target.position);
 			if (distanceFromTarget <= 600.0f) {
-
-				GameObject newWeapon = bulletPool.GetPooledObject ();
-				newWeapon.GetComponent<PlayerBullet> ().liveTime = 5;
-				newWeapon.transform.parent = pathObject;
+				GameObject newWeapon = Instantiate (weapon, pathObject);
 				newWeapon.transform.position = barrel.position;
 				newWeapon.transform.rotation = Quaternion.LookRotation (target.position - barrel.position);
-				newWeapon.SetActive (true);
 				time = timeBetweenShots;
 				gruntSound.Play ();
 			}

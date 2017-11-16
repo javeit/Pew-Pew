@@ -75,7 +75,7 @@ public class EnemyPartHealth : MonoBehaviour {
 	void onDeath() {
 		//Remove any children of destroyed object
 		foreach (Transform child in transform) {
-			Destroy (child.gameObject);
+			GameObject.Destroy (child.gameObject);
 		}
 		if (peelScript == null) { //do not destroy part if it is the capital ships armor piece
 			Destroy (gameObject);
@@ -96,10 +96,6 @@ public class EnemyPartHealth : MonoBehaviour {
 			if (deathScript != null) {
 				deathScript.afterDeath ();
 			}
-		}
-	}
-
-	void Destroy(GameObject go){
-		go.SetActive (false);
+		}	
 	}
 }

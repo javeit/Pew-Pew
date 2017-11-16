@@ -7,6 +7,11 @@ public class BulletScript : MonoBehaviour {
 	public float moveSpeed;
 	public float liveTime;
 
+	void Start(){
+		//GetComponent<Rigidbody> ().velocity = fireDirection * moveSpeed;
+		//transform.parent = null;
+	}
+
 	void Update () {
 		transform.position += transform.forward.normalized * moveSpeed;
 
@@ -23,4 +28,5 @@ public class BulletScript : MonoBehaviour {
 		}
 		Destroy (gameObject);
 	}
+
 }
