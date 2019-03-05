@@ -14,7 +14,6 @@ public class LaserScript : MonoBehaviour {
 		hudScript = GameObject.Find("CanvasMain").GetComponent<HUDScript>();
 
 		if (Application.platform == RuntimePlatform.OSXEditor ||
-			Application.platform == RuntimePlatform.OSXDashboardPlayer ||
 			Application.platform == RuntimePlatform.OSXPlayer) {
 			OSX = true;
 		} else {

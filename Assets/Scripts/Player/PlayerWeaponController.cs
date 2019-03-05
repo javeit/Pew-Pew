@@ -13,7 +13,6 @@ public class PlayerWeaponController : MonoBehaviour {
 
 	void Start () { 
 		if (Application.platform == RuntimePlatform.OSXEditor ||
-			Application.platform == RuntimePlatform.OSXDashboardPlayer ||
 			Application.platform == RuntimePlatform.OSXPlayer) {
 			OSX = true;
 		} else {

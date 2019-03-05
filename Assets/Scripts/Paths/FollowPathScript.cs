@@ -33,7 +33,7 @@ public class FollowPathScript : MonoBehaviour {
 		onRightPath = false;
 		onEndPath = false;
 	}
-
+    
 	void Update(){
 		time -= Time.deltaTime;
 		if ((time < secondPathTime + 1) && !onSecondPath) {

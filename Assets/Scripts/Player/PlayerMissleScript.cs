@@ -23,7 +23,6 @@ public class PlayerMissleScript : MonoBehaviour {
 		missileSound = GameObject.Find ("MissileLaunchSound").GetComponent<AudioSource> ();
 
 		if (Application.platform == RuntimePlatform.OSXEditor ||
-			Application.platform == RuntimePlatform.OSXDashboardPlayer ||
 			Application.platform == RuntimePlatform.OSXPlayer) {
 			OSX = true;
 		} else {
