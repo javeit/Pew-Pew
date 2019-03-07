@@ -2,8 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace PewPew {
+namespace RedTeam {
 
+    /// <summary>
+    /// Handles sending messages/making controller scripts available throghout the game without functionally disparate scripts requiring direct references to one another
+    /// </summary>
     public class EventManager {
 
         private static List<EventHandler> _broadcasts;
@@ -15,6 +18,9 @@ namespace PewPew {
             _requests = new List<EventHandler>();
         }
 
+        /// <summary>
+        /// Removes all of the broadcasts and requests, readying the EventManager for new broadcasts and requests
+        /// </summary>
         public static void Clean() {
 
             Init();

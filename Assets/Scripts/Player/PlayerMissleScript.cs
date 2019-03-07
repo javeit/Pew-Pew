@@ -2,93 +2,122 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerMissleScript : MonoBehaviour {
+namespace RedTeam.PewPew {
 
-	public Transform target;
-	public MissleScript misslePrefab;
-	public Transform pathObject;
-	public float timeBetweenShots;
-	public Transform barrel;
+    public class PlayerMissleScript : MonoBehaviour {
 
-	private HUDScript hudScript;
-	private float timeToFire;
-	private GameObject[] targets;
-	private GameObject missleTarget;
-	private AudioSource missileSound;
-	private bool OSX;
+        HUDController _hudController;
 
-	void Start () {
-		hudScript = GameObject.Find("CanvasMain").GetComponent<HUDScript>();
-		timeToFire = 0;
-		missileSound = GameObject.Find ("MissileLaunchSound").GetComponent<AudioSource> ();
+        HUDController HUDController {
+            get {
+                if (_hudController == null)
+                    _hudController = EventManager.Request<HUDController>("HUDController");
 
-		if (Application.platform == RuntimePlatform.OSXEditor ||
-			Application.platform == RuntimePlatform.OSXPlayer) {
-			OSX = true;
-		} else {
-			OSX = false;
-		}
-	}
+                return _hudController;
+            }
+        }
 
-	void Update () {
-		if (!OSX) {
-			if ((Input.GetButtonDown ("Fire1") || Input.GetAxis("Fire1 Windows") > 0f) && hudScript.getPaused () == false) {
-				if (timeToFire <= 0) {
+        public Transform target;
+        public MissleScript misslePrefab;
+        public Transform pathObject;
+        public float timeBetweenShots;
+        public Transform barrel;
+        public AudioSource missileSound;
 
-					MissleScript newMissle = Instantiate (misslePrefab, pathObject);
+        float timeToFire;
+        GameObject[] targets;
+        GameObject missleTarget;
+        bool OSX;
 
-					newMissle.transform.position = barrel.position;
-					newMissle.transform.rotation = Quaternion.LookRotation (transform.forward);
+        void Start() {
 
-					if (GameObject.FindWithTag ("Enemy") != null) {
-					
-						targets = GameObject.FindGameObjectsWithTag ("Enemy");
+            timeToFire = 0;
 
-						missleTarget = targets [0];
-						for (int i = 0; i < targets.Length; i++) {
-							if ((targets [i].transform.position - target.position).magnitude < (missleTarget.transform.position - target.position).magnitude) {
-								missleTarget = targets [i];
-							}
-						}
-						newMissle.target = missleTarget;
-					} else {
-						newMissle.target = null;
-					}
-					timeToFire = timeBetweenShots;
+            if (Application.platform == RuntimePlatform.OSXEditor ||
+                Application.platform == RuntimePlatform.OSXPlayer)
+                OSX = true;
+            else
+                OSX = false;
+        }
 
-					missileSound.Play ();
-				}
-			}
-			timeToFire -= Time.deltaTime;
-		} else {
-			if ((Input.GetButtonDown ("Fire1") || Input.GetAxis("Fire1 Mac") > 0f) && hudScript.getPaused () == false) {
-				if (timeToFire <= 0) {
+        void Update() {
 
-					MissleScript newMissle = Instantiate (misslePrefab, pathObject);
+            if (!OSX) {
 
-					newMissle.transform.position = barrel.position;
-					newMissle.transform.rotation = Quaternion.LookRotation (transform.forward);
+                if ((Input.GetButtonDown("Fire1") || Input.GetAxis("Fire1 Windows") > 0f) && HUDController.GetPaused() == false) {
 
-					if (GameObject.FindWithTag ("Enemy") != null) {
+                    if (timeToFire <= 0) {
 
-						targets = GameObject.FindGameObjectsWithTag ("Enemy");
+                        MissleScript newMissle = Instantiate(misslePrefab, pathObject);
 
-						missleTarget = targets [0];
-						for (int i = 0; i < targets.Length; i++) {
-							if ((targets [i].transform.position - target.position).magnitude < (missleTarget.transform.position - target.position).magnitude) {
-								missleTarget = targets [i];
-							}
-						}
-						newMissle.target = missleTarget;
-					} else {
-						newMissle.target = null;
-					}
-					timeToFire = timeBetweenShots;
+                        newMissle.transform.position = barrel.position;
+                        newMissle.transform.rotation = Quaternion.LookRotation(transform.forward);
 
-					missileSound.Play ();
-				}
-			}
-			timeToFire -= Time.deltaTime;
-		}
-	}
+                        if (GameObject.FindWithTag("Enemy") != null) {
+
+                            targets = GameObject.FindGameObjectsWithTag("Enemy");
+
+                            missleTarget = targets[0];
+
+                            for (int i = 0; i < targets.Length; i++) {
+
+                                if ((targets[i].transform.position - target.position).magnitude < (missleTarget.transform.position - target.position).magnitude)
+                                    missleTarget = targets[i];
+                            }
+
+                            newMissle.target = missleTarget;
+
+                        } else {
+
+                            newMissle.target = null;
+                        }
+
+                        timeToFire = timeBetweenShots;
+
+                        missileSound.Play();
+                    }
+                }
+
+                timeToFire -= Time.deltaTime;
+
+            } else {
+
+                if ((Input.GetButtonDown("Fire1") || Input.GetAxis("Fire1 Mac") > 0f) && HUDController.GetPaused() == false) {
+
+                    if (timeToFire <= 0) {
+
+                        MissleScript newMissle = Instantiate(misslePrefab, pathObject);
+
+                        newMissle.transform.position = barrel.position;
+                        newMissle.transform.rotation = Quaternion.LookRotation(transform.forward);
+
+                        if (GameObject.FindWithTag("Enemy") != null) {
+
+                            targets = GameObject.FindGameObjectsWithTag("Enemy");
+
+                            missleTarget = targets[0];
+
+                            for (int i = 0; i < targets.Length; i++) {
+
+                                if ((targets[i].transform.position - target.position).magnitude < (missleTarget.transform.position - target.position).magnitude)
+                                    missleTarget = targets[i];
+                            }
+
+                            newMissle.target = missleTarget;
+
+                        } else {
+
+                            newMissle.target = null;
+                        }
+
+                        timeToFire = timeBetweenShots;
+
+                        missileSound.Play();
+                    }
+                }
+
+                timeToFire -= Time.deltaTime;
+            }
+        }
+    }
 }

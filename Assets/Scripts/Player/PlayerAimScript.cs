@@ -2,20 +2,29 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerAimScript : MonoBehaviour {
+namespace RedTeam.PewPew {
 
-	public Transform target;
-	//Need this to disable while paused -Scott
-	HUDScript hudScript;
-	void Start()
-	{
-		hudScript = GameObject.Find("CanvasMain").GetComponent<HUDScript>();
-	}
+    public class PlayerAimScript : MonoBehaviour {
 
-	void Update () {
-		if(!hudScript.getPaused())
-		{
-			transform.rotation = Quaternion.LookRotation (target.position - transform.position);
-		}
-	}
+        HUDController _hudController;
+
+        HUDController HUDController {
+
+            get {
+
+                if (_hudController == null)
+                    _hudController = EventManager.Request<HUDController>("HUDController");
+
+                return _hudController;
+            }
+        }
+
+        public Transform target;
+
+        void Update() {
+
+            if (!HUDController.GetPaused())
+                transform.rotation = Quaternion.LookRotation(target.position - transform.position);
+        }
+    }
 }

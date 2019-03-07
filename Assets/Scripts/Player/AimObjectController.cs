@@ -2,59 +2,72 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AimObjectController : MonoBehaviour {
+namespace RedTeam.PewPew {
 
-	public float moveSpeedMouse;
-	public float moveSpeedController;
+    public class AimObjectController : MonoBehaviour {
 
-	private float xValMouse;
-	private float xValController;
-	private float yValMouse;
-	private float yValController;
+        HUDController _hudController;
 
-	private bool OSX;
-	//Need this to disable while paused -Scott
-	HUDScript hudScript;
-	void Start(){
-		hudScript = GameObject.Find("CanvasMain").GetComponent<HUDScript>();
-		if (Application.platform == RuntimePlatform.OSXEditor ||
-		    Application.platform == RuntimePlatform.OSXPlayer) {
-			OSX = true;
-		} else {
-			OSX = false;
-		}
+        HUDController HUDController {
+            get {
+                if (_hudController == null)
+                    _hudController = EventManager.Request<HUDController>("HUDController");
 
-		Cursor.visible = false;
-		Cursor.lockState = CursorLockMode.Locked;
-	}
+                return _hudController;
+            }
+        }
 
-	void Update () {
-		if(hudScript.getPaused()){return;}
-		if (OSX) {
-			
-			xValMouse = Input.GetAxis ("Aim Horizontal Mac");
-			yValMouse = Input.GetAxis ("Aim Vertical Mac");
+        public float moveSpeedMouse;
+        public float moveSpeedController;
 
-			transform.localPosition += new Vector3 (xValMouse, yValMouse, 0) * moveSpeedMouse;
+        private float xValMouse;
+        private float xValController;
+        private float yValMouse;
+        private float yValController;
 
+        private bool OSX;
+        //Need this to disable while paused -Scott
+        void Start() {
 
-			xValController = Input.GetAxis ("Aim Horizontal Mac Controller");
-			yValController = Input.GetAxis ("Aim Vertical Mac Controller");
+            if (Application.platform == RuntimePlatform.OSXEditor ||
+                Application.platform == RuntimePlatform.OSXPlayer)
+                OSX = true;
+            else
+                OSX = false;
 
-			transform.localPosition += new Vector3 (xValController, yValController, 0) * moveSpeedController;
+            Cursor.visible = false;
+            Cursor.lockState = CursorLockMode.Locked;
+        }
 
-		} else {
-			
-			xValMouse = Input.GetAxis ("Aim Horizontal Windows");
-			yValMouse = Input.GetAxis ("Aim Vertical Windows");
+        void Update() {
 
-			transform.localPosition += new Vector3 (xValMouse, yValMouse, 0) * moveSpeedMouse;
+            if (HUDController.GetPaused())
+                return;
 
+            if (OSX) {
 
-			xValController = Input.GetAxis ("Aim Horizontal Windows Controller");
-			yValController = Input.GetAxis ("Aim Vertical Windows Controller");
+                xValMouse = Input.GetAxis("Aim Horizontal Mac");
+                yValMouse = Input.GetAxis("Aim Vertical Mac");
 
-			transform.localPosition += new Vector3 (xValController, yValController, 0) * moveSpeedController;
-		}
-	}
+                transform.localPosition += new Vector3(xValMouse, yValMouse, 0) * moveSpeedMouse;
+
+                xValController = Input.GetAxis("Aim Horizontal Mac Controller");
+                yValController = Input.GetAxis("Aim Vertical Mac Controller");
+
+                transform.localPosition += new Vector3(xValController, yValController, 0) * moveSpeedController;
+
+            } else {
+
+                xValMouse = Input.GetAxis("Aim Horizontal Windows");
+                yValMouse = Input.GetAxis("Aim Vertical Windows");
+
+                transform.localPosition += new Vector3(xValMouse, yValMouse, 0) * moveSpeedMouse;
+
+                xValController = Input.GetAxis("Aim Horizontal Windows Controller");
+                yValController = Input.GetAxis("Aim Vertical Windows Controller");
+
+                transform.localPosition += new Vector3(xValController, yValController, 0) * moveSpeedController;
+            }
+        }
+    }
 }

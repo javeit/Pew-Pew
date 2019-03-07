@@ -1,31 +1,35 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
-namespace PewPew {
+namespace RedTeam {
 
+    /// <summary>
+    /// The GameManager is responsible for initializing certain generic systems and loading the first real scene of the game
+    /// </summary>
     public class GameManager : MonoBehaviour {
 
         public string mainMenuScene;
+        public TransitionManager transitionManager;
 
-        private void Awake() {
+        void OnDestroy() {
+
+            EventManager.Clean();
+        }
+
+        void Awake() {
 
             EventManager.Init();
 
             EventManager.AddRequest<GameManager>("GameManager", () => this);
+            EventManager.AddRequest<TransitionManager>("TransitionManager", () => transitionManager);
 
             DontDestroyOnLoad(gameObject);
         }
 
-        private void Start() {
+        void Start() {
 
-            SceneManager.LoadSceneAsync(mainMenuScene);
-        }
-
-        private void OnDestroy() {
-
-            EventManager.Clean();
+            StartCoroutine(transitionManager.TransitionTo(mainMenuScene));
         }
     }
 }
