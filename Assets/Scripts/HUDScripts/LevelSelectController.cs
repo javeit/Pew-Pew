@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace RedTeam.PewPew {
 
@@ -33,18 +34,18 @@ namespace RedTeam.PewPew {
 
             //PlayerPrefs.SetInt("ShipSelect", selectScript.getIndex());
             if (selectScript.getIndex() == 0)
-                StartCoroutine(TransitionManager.TransitionTo(level1Scene));
+                StartCoroutine(TransitionManager.Transition(SceneManager.GetActiveScene().name, level1Scene));
             else if (selectScript.getIndex() == 1)
-                StartCoroutine(TransitionManager.TransitionTo(level2Scene));
+                StartCoroutine(TransitionManager.Transition(SceneManager.GetActiveScene().name, level2Scene));
             else if (selectScript.getIndex() == 2)
-                StartCoroutine(TransitionManager.TransitionTo(level3Scene));
+                StartCoroutine(TransitionManager.Transition(SceneManager.GetActiveScene().name, level3Scene));
             else
-                StartCoroutine(TransitionManager.TransitionTo(level1Scene));
+                StartCoroutine(TransitionManager.Transition(SceneManager.GetActiveScene().name, level1Scene));
         }
 
         void GoBack() {
 
-            StartCoroutine(TransitionManager.TransitionTo(shipSelectScene));
+            StartCoroutine(TransitionManager.Transition(SceneManager.GetActiveScene().name, shipSelectScene));
         }
 
         public void StartSelected() {

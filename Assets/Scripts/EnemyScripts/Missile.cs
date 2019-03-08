@@ -32,8 +32,9 @@ public class Missile : MonoBehaviour
 
         if (State.Equals("ATTACK"))
         {
-            iTween.LookUpdate(gameObject, target.transform.position, .2f);
-            iTween.MoveUpdate(gameObject, target.transform.position, 9.0f);
+            // TODO: Replace iTween with another aiming solution, preferably one which can be used by all types of enemies
+        //    iTween.LookUpdate(gameObject, target.transform.position, .2f);
+        //    iTween.MoveUpdate(gameObject, target.transform.position, 9.0f);
         }
         else if (State.Equals("DISABLE"))
         {

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace RedTeam {
 
@@ -12,10 +13,7 @@ namespace RedTeam {
         public string mainMenuScene;
         public TransitionManager transitionManager;
 
-        void OnDestroy() {
-
-            EventManager.Clean();
-        }
+        IEngine _currentEngine;
 
         void Awake() {
 
@@ -23,13 +21,19 @@ namespace RedTeam {
 
             EventManager.AddRequest<GameManager>("GameManager", () => this);
             EventManager.AddRequest<TransitionManager>("TransitionManager", () => transitionManager);
+            EventManager.AddRequest<IEngine>("CurrentEngine", () => _currentEngine);
 
             DontDestroyOnLoad(gameObject);
         }
 
         void Start() {
 
-            StartCoroutine(transitionManager.TransitionTo(mainMenuScene));
+            StartCoroutine(transitionManager.Transition(SceneManager.GetActiveScene().name, mainMenuScene));
+        }
+
+        void OnDestroy() {
+
+            EventManager.Clean();
         }
     }
 }

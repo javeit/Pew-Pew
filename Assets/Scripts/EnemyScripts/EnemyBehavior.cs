@@ -49,10 +49,12 @@ namespace RedTeam.PewPew {
             if (state.Equals("ACTIVE")) {
 
                 //When it activates, it moves to the middle of the screen
-                iTween.LookUpdate(gameObject, iTween.Hash("looktarget", player.transform.position, "speed", 1.0f));
+                // TODO: Replace iTween solutions
+                //iTween.LookUpdate(gameObject, iTween.Hash("looktarget", player.transform.position, "speed", 1.0f));
                 goal = path.transform.position + (path.transform.forward * 30) + rand;
 
-                iTween.MoveUpdate(gameObject, iTween.Hash("position", goal, "time", 0.5f * shipWeight));
+                // TODO: Replace iTween solutions
+                //iTween.MoveUpdate(gameObject, iTween.Hash("position", goal, "time", 0.5f * shipWeight));
                 if (Mathf.Abs(transform.position.x - goal.x) < 2 && Mathf.Abs(transform.position.y - goal.y) < 2 && Mathf.Abs(transform.position.z - goal.z) < 2)
                     Attack();
 
@@ -63,7 +65,8 @@ namespace RedTeam.PewPew {
             } else if (state.Equals("ATTACK")) {
 
                 //Moves back and forth in front of the player
-                iTween.LookUpdate(gameObject, iTween.Hash("looktarget", player.transform.position, "speed", 1.0f * faceSpeed));
+                // TODO: Replace iTween solutions
+                //iTween.LookUpdate(gameObject, iTween.Hash("looktarget", player.transform.position, "speed", 1.0f * faceSpeed));
                 if (timer > 350) {
 
                     //State = "DISABLE";
@@ -105,7 +108,8 @@ namespace RedTeam.PewPew {
                 //fire.enabled = false;
                 goal = transform.position - (path.transform.forward * 20);
 
-                iTween.MoveUpdate(gameObject, iTween.Hash("position", goal, "time", 0.5f * shipWeight));
+                // TODO: Replace iTween solutions
+                //iTween.MoveUpdate(gameObject, iTween.Hash("position", goal, "time", 0.5f * shipWeight));
                 timer--;
 
                 if (timer < 310)
@@ -113,7 +117,8 @@ namespace RedTeam.PewPew {
 
             } else if (state.Equals("IDLE")) {
 
-                iTween.LookUpdate(gameObject, iTween.Hash("looktarget", player.transform.position, "speed", 1.0f * faceSpeed));
+                // TODO: Replace iTween solutions
+                //iTween.LookUpdate(gameObject, iTween.Hash("looktarget", player.transform.position, "speed", 1.0f * faceSpeed));
             }
         }
 

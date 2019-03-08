@@ -24,7 +24,8 @@ namespace RedTeam.PewPew {
         void Start() {
 
             pulledOut.enabled = false;
-            iTween.MoveTo(gameObject, iTween.Hash("path", iTweenPath.GetPath("Start Path"), "time", startPathTime, "orientToPath", true, "easetype", iTween.EaseType.linear));
+            // TODO: Replace iTween solutions
+            //iTween.MoveTo(gameObject, iTween.Hash("path", iTweenPath.GetPath("Start Path"), "time", startPathTime, "orientToPath", true, "easetype", iTween.EaseType.linear));
             time = trenchRunTime + toCoreTime + startPathTime;
             inTrench = false;
             onStrafe = false;
@@ -35,19 +36,22 @@ namespace RedTeam.PewPew {
 
             if (time < toCoreTime + trenchRunTime + 0.01 && !inTrench) {
 
-                iTween.MoveTo(gameObject, iTween.Hash("path", iTweenPath.GetPath("Trench Run"), "time", trenchRunTime, "orientToPath", true, "easetype", iTween.EaseType.linear));
+                // TODO: Replace iTween solutions
+                //iTween.MoveTo(gameObject, iTween.Hash("path", iTweenPath.GetPath("Trench Run"), "time", trenchRunTime, "orientToPath", true, "easetype", iTween.EaseType.linear));
                 inTrench = true;
             }
 
             if (time < toCoreTime + 3 && !toCore && boss.pathChange) {
 
                 toCore = true;
-                iTween.MoveTo(gameObject, iTween.Hash("path", iTweenPath.GetPath("Path to Core"), "time", toCoreTime, "easetype", iTween.EaseType.linear, "orientToPath", true));
+                // TODO: Replace iTween solutions
+                //iTween.MoveTo(gameObject, iTween.Hash("path", iTweenPath.GetPath("Path to Core"), "time", toCoreTime, "easetype", iTween.EaseType.linear, "orientToPath", true));
             }
 
             if (time < 1 && !onStrafe && toCore) {
 
-                iTween.MoveTo(gameObject, iTween.Hash("path", iTweenPath.GetPath("Strafing the Core"), "time", strafeSpeed, "looptype", iTween.LoopType.pingPong, "easetype", iTween.EaseType.linear));
+                // TODO: Replace iTween solutions
+                //iTween.MoveTo(gameObject, iTween.Hash("path", iTweenPath.GetPath("Strafing the Core"), "time", strafeSpeed, "looptype", iTween.LoopType.pingPong, "easetype", iTween.EaseType.linear));
                 onStrafe = true;
                 transform.rotation = Quaternion.Euler(new Vector3(90, 180, 90));
             }

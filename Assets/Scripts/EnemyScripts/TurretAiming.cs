@@ -16,11 +16,9 @@ public class TurretAiming : MonoBehaviour {
 
     // Update is called once per frame
     void Update() {
-		iTween.LookUpdate(turret, iTween.Hash("looktarget", player.transform.position, "speed", 0.5f*turnSpeedMult));
-
+        // TODO: Replace iTween with another aiming solution, perhaps one which can be used for all enemy aiming
+        //iTween.LookUpdate(turret, iTween.Hash("looktarget", player.transform.position, "speed", 0.5f*turnSpeedMult));
     }
-
-  
 
     void OnBecameInvisible()
     {

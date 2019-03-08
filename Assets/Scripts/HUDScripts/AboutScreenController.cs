@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace RedTeam.PewPew {
 
@@ -21,7 +22,7 @@ namespace RedTeam.PewPew {
 
         public void ReturnToMainMenu() {
 
-            StartCoroutine(TransitionManager.TransitionTo(mainMenuScene));
+            StartCoroutine(TransitionManager.Transition(SceneManager.GetActiveScene().name, mainMenuScene));
         }
     }
 }

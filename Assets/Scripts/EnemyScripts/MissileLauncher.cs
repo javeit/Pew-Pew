@@ -63,7 +63,8 @@ public class MissileLauncher : MonoBehaviour
             if (timer >= 200)
                 timer = 0;
 
-            iTween.LookUpdate(gameObject, iTween.Hash("looktarget", player.transform.position, "speed", 1.0f));
+            // TODO: Replace iTween solutions
+            //iTween.LookUpdate(gameObject, iTween.Hash("looktarget", player.transform.position, "speed", 1.0f));
 
             if (moveSide < 50)
             {

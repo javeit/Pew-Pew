@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace RedTeam.PewPew {
 
@@ -23,19 +24,19 @@ namespace RedTeam.PewPew {
         }
 
         public void StartGame() {
-            StartCoroutine(TransitionManager.TransitionTo(shipSelectScene));
+            StartCoroutine(TransitionManager.Transition(SceneManager.GetActiveScene().name, shipSelectScene));
         }
 
         public void LearnMore() {
-            StartCoroutine(TransitionManager.TransitionTo(learnMoreScene));
+            StartCoroutine(TransitionManager.Transition(SceneManager.GetActiveScene().name, learnMoreScene));
         }
 
         public void About() {
-            StartCoroutine(TransitionManager.TransitionTo(aboutScene));
+            StartCoroutine(TransitionManager.Transition(SceneManager.GetActiveScene().name, aboutScene));
         }
 
         public void Options() {
-            StartCoroutine(TransitionManager.TransitionTo(optionsScene));
+            StartCoroutine(TransitionManager.Transition(SceneManager.GetActiveScene().name, optionsScene));
         }
     }
 }

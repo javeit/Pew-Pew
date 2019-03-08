@@ -49,14 +49,15 @@ public class Capital_ArmorBreak : MonoBehaviour {
 
 	IEnumerator wait2secs() {
 		yield return new WaitForSeconds (2);
-		GameObject.Destroy(trenchparts);
+		Destroy(trenchparts);
 
 		//float the plate away
 		isDead = true;
-		iTween.MoveTo (GameObject.Find ("Breakaway"), iTween.Hash ("x", targetX, "y", targetY, "z", targetZ, "islocal", true, "time", 10));
+        // TODO: Replace iTween solutions
+        //iTween.MoveTo (GameObject.Find ("Breakaway"), iTween.Hash ("x", targetX, "y", targetY, "z", targetZ, "islocal", true, "time", 10));
 
-		//EXPLOSIONS
-		if (!haveExploded) {
+        //EXPLOSIONS
+        if (!haveExploded) {
 			exp1.Play (true);
 			exp2.Play (true);
 			exp3.Play (true);

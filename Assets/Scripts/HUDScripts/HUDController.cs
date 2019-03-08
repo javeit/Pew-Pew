@@ -167,7 +167,7 @@ namespace RedTeam.PewPew {
 
                 heartsLeft = 2;
 
-                StartCoroutine(TransitionManager.TransitionTo(SceneManager.GetActiveScene().name));
+                StartCoroutine(TransitionManager.Transition(SceneManager.GetActiveScene().name, SceneManager.GetActiveScene().name));
             }
         }
 
@@ -188,12 +188,12 @@ namespace RedTeam.PewPew {
             Time.timeScale = 1.0f;
             livesLeft = 2;
 
-            StartCoroutine(TransitionManager.TransitionTo(levelSelectScene));
+            StartCoroutine(TransitionManager.Transition(SceneManager.GetActiveScene().name, levelSelectScene));
         }
 
         public void QuitGame() {
 
-            StartCoroutine(TransitionManager.TransitionTo(mainMenuScene));
+            StartCoroutine(TransitionManager.Transition(SceneManager.GetActiveScene().name, mainMenuScene));
         }
 
         public void SetIndex(int i) {

@@ -17,13 +17,18 @@ namespace RedTeam {
         public Image transitionOverlay;
 
         /// <summary>
-        /// Transitions from the currently active scene to the scene specified by <paramref name="sceneName"/> by
+        /// Transitions from the currently active scene to the scene specified by <paramref name="toSceneName"/> by
         /// first loading an loading scene, using an overlay to cover when the loading scene is loaded in and out.
         /// </summary>
-        /// <param name="sceneName">Scene name.</param>
-        public IEnumerator TransitionTo(string sceneName) {
+        /// <param name="toSceneName">Scene name.</param>
+        public IEnumerator Transition(string fromSceneName, string toSceneName) {
 
-            string sceneToTransitionFrom = SceneManager.GetActiveScene().name;
+            yield return BeginTransition(fromSceneName);
+
+            yield return EndTransition(toSceneName);
+        }
+
+        public IEnumerator BeginTransition(string fromSceneName) {
 
             yield return FadeOut(1f, Color.black);
 
@@ -31,9 +36,12 @@ namespace RedTeam {
 
             yield return FadeIn(1f, Color.black);
 
-            yield return UnloadScene(sceneToTransitionFrom, (progress) => EventManager.TriggerBroadcast<float>("LoadingProgress", progress / 2f));
+            yield return UnloadScene(fromSceneName, (progress) => EventManager.TriggerBroadcast<float>("LoadingProgress", progress / 2f));
+        }
 
-            yield return LoadScene(sceneName, (progress) => EventManager.TriggerBroadcast<float>("LoadingProgress", 0.5f + progress / 2f));
+        public IEnumerator EndTransition(string toSceneName) {
+
+            yield return LoadScene(toSceneName, (progress) => EventManager.TriggerBroadcast<float>("LoadingProgress", 0.5f + progress / 2f));
 
             yield return FadeOut(1f, Color.black);
 
