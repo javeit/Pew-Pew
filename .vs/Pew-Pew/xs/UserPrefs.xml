@@ -1,12 +1,16 @@
 ﻿<Properties StartupConfiguration="{0DCAA871-8E7B-0E95-8577-21F923475E06}|">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Paths/Editor/SplinePathEditorInspector.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/RedTeam/Scripts/SplineEditor.cs">
     <Files>
-      <File FileName="Assets/Scripts/Systems/EventManager.cs" Line="79" Column="1" />
-      <File FileName="Assets/Scripts/Systems/TransitionManager.cs" Line="30" Column="1" />
-      <File FileName="Assets/Scripts/Systems/Engine.cs" Line="63" Column="1" />
-      <File FileName="Assets/Scripts/Paths/SplinePath.cs" Line="30" Column="13" />
-      <File FileName="Assets/Scripts/Paths/SplinePathEditor.cs" Line="2" Column="19" />
-      <File FileName="Assets/Scripts/Paths/Editor/SplinePathEditorInspector.cs" Line="21" Column="5" />
+      <File FileName="Assets/RedTeam/Scripts/Engines/Engine.cs" Line="61" Column="52" />
+      <File FileName="Assets/RedTeam/Scripts/Engines/EngineData.cs" Line="9" Column="33" />
+      <File FileName="Assets/RedTeam/Scripts/GameManager.cs" Line="34" Column="1" />
+      <File FileName="Assets/PewPew/Scripts/Paths/CourseObjectController.cs" Line="67" Column="1" />
+      <File FileName="Assets/PewPew/Scripts/Player/PlayerController.cs" Line="25" Column="1" />
+      <File FileName="Assets/PewPew/Scripts/LoadingSceneController.cs" Line="37" Column="1" />
+      <File FileName="Assets/RedTeam/Scripts/SplineEditor.cs" Line="74" Column="10" />
+      <File FileName="Assets/PewPew/Scripts/Engines/TestEngine.cs" Line="29" Column="2" NotebookId="1" />
+      <File FileName="Assets/PewPew/Scripts/Engines/TestEngineData.cs" Line="10" Column="46" NotebookId="1" />
+      <File FileName="Assets/RedTeam/Scripts/Splines/Editor/SplineEditorInspector.cs" Line="30" Column="33" NotebookId="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
