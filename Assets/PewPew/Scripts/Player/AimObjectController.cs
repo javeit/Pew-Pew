@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace RedTeam.PewPew {
 
-    public class AimObjectController : MonoBehaviour {
+    public class AimObjectController : GameEventListener {
 
         public float moveSpeedMouse;
         public float moveSpeedController;
@@ -15,15 +15,10 @@ namespace RedTeam.PewPew {
         float yValController;
 
         bool OSX;
-        bool paused;
-        bool playing;
 
         void Update() {
 
-            if (paused)
-                return;
-
-            if (!playing)
+            if (!_playing || _paused)
                 return;
 
             if (OSX) {
@@ -52,55 +47,15 @@ namespace RedTeam.PewPew {
             }
         }
 
-        void StartGame() {
+        protected override void OnInitGame() {
 
-            playing = true;
-        }
-
-        void StopGame() {
-
-            playing = false;
-        }
-
-        void PauseGame() {
-
-            paused = true;
-        }
-
-        void ResumeGame() {
-
-            paused = false;
-        }
-
-        void OnGameEvent(GameEvent gameEvent) {
-
-            if (gameEvent == GameEvent.StartGame)
-                StartGame();
-            else if (gameEvent == GameEvent.StopGame)
-                StopGame();
-            else if (gameEvent == GameEvent.PauseGame)
-                PauseGame();
-            else if (gameEvent == GameEvent.ResumeGame)
-                ResumeGame();
-        }
-
-        void Awake() {
+            base.OnInitGame();
 
             if (Application.platform == RuntimePlatform.OSXEditor ||
                 Application.platform == RuntimePlatform.OSXPlayer)
                 OSX = true;
             else
                 OSX = false;
-
-            Cursor.visible = false;
-            Cursor.lockState = CursorLockMode.Locked;
-
-            EventManager.AddBroadcastListener<GameEvent>("GameEvent", OnGameEvent);
-        }
-
-        void OnDisable() {
-
-            EventManager.RemoveBroadcastListener<GameEvent>("GameEvent", OnGameEvent);
         }
     }
 }

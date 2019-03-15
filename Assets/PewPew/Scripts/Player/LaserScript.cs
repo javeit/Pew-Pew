@@ -5,22 +5,9 @@ using UnityEngine;
 namespace RedTeam.PewPew {
 
     [RequireComponent(typeof(LineRenderer))]
-    public class LaserScript : MonoBehaviour {
-
-        HUDController _hudController;
-
-        HUDController HUDController {
-            get {
-
-                if (_hudController == null)
-                    _hudController = EventManager.Request<HUDController>("HUDController");
-
-                return _hudController;
-            }
-        }
+    public class LaserScript : GameEventListener {
 
         LineRenderer line;
-        //Need this to disable while paused -Scott
 
         bool OSX;
 
@@ -28,7 +15,7 @@ namespace RedTeam.PewPew {
 
         void Update() {
 
-            if (!HUDController.GetPaused()) {
+            if (!_paused) {
 
                 if (!OSX) {
 
@@ -63,7 +50,7 @@ namespace RedTeam.PewPew {
 
             line.enabled = true;
 
-            while ((Input.GetButtonDown("Fire1") || (!OSX && Input.GetAxis("Fire1 Windows") > 0f) || (OSX && Input.GetAxis("Fire1 Mac") > 0f)) && !HUDController.GetPaused()) {
+            while ((Input.GetButtonDown("Fire1") || (!OSX && Input.GetAxis("Fire1 Windows") > 0f) || (OSX && Input.GetAxis("Fire1 Mac") > 0f)) && !_paused) {
 
                 Ray ray = new Ray(transform.position, transform.forward);
                 RaycastHit hit;
@@ -98,7 +85,7 @@ namespace RedTeam.PewPew {
             line.enabled = false;
         }
 
-        void Start() {
+        protected override void Awake() {
 
             line = GetComponent<LineRenderer>();
 
@@ -107,6 +94,8 @@ namespace RedTeam.PewPew {
                 OSX = true;
             else
                 OSX = false;
+
+            base.Awake();
         }
     }
 }

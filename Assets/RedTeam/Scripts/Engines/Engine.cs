@@ -46,9 +46,9 @@ namespace RedTeam {
             else
                 yield return TransitionManager.BeginTransition();
 
-            InitGame();
-
             yield return TransitionManager.EndTransition(SceneName);
+
+            InitGame();
 
             StartGame();
         }

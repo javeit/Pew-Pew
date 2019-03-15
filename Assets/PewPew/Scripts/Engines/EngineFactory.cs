@@ -9,8 +9,8 @@ namespace RedTeam {
 
         partial void GenerateEngineFor(EngineData data) {
 
-            if (data is TestEngineData)
-                generatedEngine = new TestEngine(data as TestEngineData);
+            if (data is GameEngineData)
+                generatedEngine = new GameEngine(data as GameEngineData);
             else
                 generatedEngine = null;
         }

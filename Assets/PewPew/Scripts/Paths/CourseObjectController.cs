@@ -8,7 +8,7 @@ namespace RedTeam.PewPew {
     /// The controller for the object that follows the course, 
     /// which contains the player and the main camera (moving both along the course with it)
     /// </summary>
-    public class CourseObjectController : MonoBehaviour {
+    public class CourseObjectController : GameEventListener {
 
         const float Epsilon = 0.0001f;
 
@@ -19,7 +19,6 @@ namespace RedTeam.PewPew {
         public Transform rotationObject;
 
         Coroutine followCourseCorountine;
-        bool paused;
 
         IEnumerator FollowCourse(CourseSegment segment) {
 
@@ -47,7 +46,7 @@ namespace RedTeam.PewPew {
                 while (moveVector.magnitude > moveSpeed * Time.deltaTime) {
 
                     // to halt the coroutine while paused
-                    while (paused)
+                    while (_paused)
                         yield return null;
 
                     transform.Translate(moveVector.normalized * moveSpeed * Time.deltaTime);
@@ -73,48 +72,20 @@ namespace RedTeam.PewPew {
                 EventManager.TriggerBroadcast("StopGame");
         }
 
-        void StartGame() {
+        protected override void OnStartGame() {
+
+            base.OnStartGame();
 
             CourseSegment startingSegment = EventManager.Request<CourseSegment>("StartingSegment");
 
             followCourseCorountine = StartCoroutine(FollowCourse(startingSegment));
         }
 
-        void StopGame() {
+        protected override void OnStopGame() {
+
+            base.OnStopGame();
 
             StopCoroutine(followCourseCorountine);
-        }
-
-        void PauseGame() {
-
-            paused = true;
-        }
-
-        void ResumeGame() {
-
-            paused = false;
-        }
-
-        void OnGameEvent(GameEvent gameEvent) {
-
-            if (gameEvent == GameEvent.StartGame)
-                StartGame();
-            else if (gameEvent == GameEvent.StopGame)
-                StopGame();
-            else if (gameEvent == GameEvent.PauseGame)
-                PauseGame();
-            else if (gameEvent == GameEvent.ResumeGame)
-                ResumeGame();
-        }
-
-        void Awake() {
-
-            EventManager.AddBroadcastListener<GameEvent>("GameEvent", OnGameEvent);
-        }
-
-        void OnDisable() {
-
-            EventManager.RemoveBroadcastListener<GameEvent>("GameEvent", OnGameEvent);
         }
     }
 }

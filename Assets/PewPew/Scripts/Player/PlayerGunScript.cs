@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace RedTeam.PewPew {
 
-    public class PlayerGunScript : MonoBehaviour {
+    public class PlayerGunScript : GameEventListener {
 
         public Transform target;
         public GameObject bulletPrefab;
@@ -16,17 +16,14 @@ namespace RedTeam.PewPew {
         AudioSource shotSound;
         bool OSX;
 
-        bool paused;
-        bool playing;
-
         void Update() {
 
-            if (!playing)
+            if (!_playing)
                 return;
 
             if (!OSX) {
 
-                if ((Input.GetButton("Fire1") || Input.GetAxis("Fire1 Windows") > 0f) && !paused) {
+                if ((Input.GetButton("Fire1") || Input.GetAxis("Fire1 Windows") > 0f) && !_paused) {
 
                     if (timeToFire <= 0) {
 
@@ -48,7 +45,7 @@ namespace RedTeam.PewPew {
 
             } else {
 
-                if ((Input.GetButton("Fire1") || Input.GetAxis("Fire1 Windows") > 0f) && !paused) {
+                if ((Input.GetButton("Fire1") || Input.GetAxis("Fire1 Windows") > 0f) && !_paused) {
 
                     if (timeToFire <= 0) {
 
@@ -70,41 +67,7 @@ namespace RedTeam.PewPew {
             }
         }
 
-        void StartGame() {
-
-            playing = true;
-        }
-
-        void StopGame() {
-
-            playing = false;
-        }
-
-        void PauseGame() {
-
-            paused = true;
-        }
-
-        void ResumeGame() {
-
-            paused = false;
-        }
-
-        void OnGameEvent(GameEvent gameEvent) {
-
-            if (gameEvent == GameEvent.StartGame)
-                StartGame();
-            else if (gameEvent == GameEvent.StopGame)
-                StopGame();
-            else if (gameEvent == GameEvent.PauseGame)
-                PauseGame();
-            else if (gameEvent == GameEvent.ResumeGame)
-                ResumeGame();
-        }
-
-        void Awake() {
-
-            EventManager.AddBroadcastListener<GameEvent>("GameEvent", OnGameEvent);
+        protected override void Awake() {
 
             shotSound = GetComponent<AudioSource>();
 
@@ -116,11 +79,7 @@ namespace RedTeam.PewPew {
             else
                 OSX = false;
 
-            paused = false;
-        }
-
-        void OnDisable() {
-            EventManager.RemoveBroadcastListener<GameEvent>("GameEvent", OnGameEvent);
+            base.Awake();
         }
     }
 }

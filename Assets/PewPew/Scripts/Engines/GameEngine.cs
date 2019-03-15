@@ -2,11 +2,13 @@
 
 namespace RedTeam.PewPew {
 
-    public class TestEngine : Engine {
+    public class GameEngine : Engine {
 
+        GameEngineData _data;
         CourseSegment _startingSegment;
 
-        public TestEngine(TestEngineData data) : base(data) {
+        public GameEngine(GameEngineData data) : base(data) {
+            _data = data;
             _startingSegment = data.startingSegment;
         }
 
@@ -14,13 +16,11 @@ namespace RedTeam.PewPew {
 
             base.InitGame();
 
-            EventManager.AddBroadcastListener("StopGame", StopGame);
             EventManager.AddRequest<CourseSegment>("StartingSegment", () => _startingSegment);
         }
 
         public override IEnumerator StopEngine() {
 
-            EventManager.RemoveBroadcastListener("StopGame", StopGame);
             EventManager.RemoveRequest<CourseSegment>("StartingSegment");
 
             yield return null;

@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace RedTeam.PewPew {
 
-    public class PlayerMissleScript : MonoBehaviour {
+    public class PlayerMissleScript : GameEventListener {
 
         public Transform target;
         public MissleScript misslePrefab;
@@ -17,17 +17,15 @@ namespace RedTeam.PewPew {
         GameObject[] targets;
         GameObject missleTarget;
         bool OSX;
-        bool paused;
-        bool playing;
 
         void Update() {
 
-            if (!playing)
+            if (!_playing)
                 return;
 
             if (!OSX) {
 
-                if ((Input.GetButtonDown("Fire1") || Input.GetAxis("Fire1 Windows") > 0f) && !paused) {
+                if ((Input.GetButtonDown("Fire1") || Input.GetAxis("Fire1 Windows") > 0f) && !_paused) {
 
                     if (timeToFire <= 0) {
 
@@ -65,7 +63,7 @@ namespace RedTeam.PewPew {
 
             } else {
 
-                if ((Input.GetButtonDown("Fire1") || Input.GetAxis("Fire1 Mac") > 0f) && !paused) {
+                if ((Input.GetButtonDown("Fire1") || Input.GetAxis("Fire1 Mac") > 0f) && !_paused) {
 
                     if (timeToFire <= 0) {
 
@@ -103,39 +101,7 @@ namespace RedTeam.PewPew {
             }
         }
 
-        void StartGame() {
-
-            playing = true;
-        }
-
-        void StopGame() {
-
-            playing = false;
-        }
-
-        void PauseGame() {
-
-            paused = true;
-        }
-
-        void ResumeGame() {
-
-            paused = false;
-        }
-
-        void OnGameEvent(GameEvent gameEvent) {
-
-            if (gameEvent == GameEvent.StartGame)
-                StartGame();
-            else if (gameEvent == GameEvent.StopGame)
-                StopGame();
-            else if (gameEvent == GameEvent.PauseGame)
-                PauseGame();
-            else if (gameEvent == GameEvent.ResumeGame)
-                ResumeGame();
-        }
-
-        void Awake() {
+        protected override void Awake() {
 
             timeToFire = 0;
 
@@ -145,12 +111,7 @@ namespace RedTeam.PewPew {
             else
                 OSX = false;
 
-            EventManager.AddBroadcastListener<GameEvent>("GameEvent", OnGameEvent);
-        }
-
-        void OnDisable() {
-
-            EventManager.RemoveBroadcastListener<GameEvent>("GameEvent", OnGameEvent);
+            base.Awake();
         }
     }
 }

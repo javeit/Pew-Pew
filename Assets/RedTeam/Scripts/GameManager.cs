@@ -34,12 +34,14 @@ namespace RedTeam {
 
         IEnumerator SwitchEngines(IEngine newEngine) {
 
-            if (_currentEngine != null)
-                yield return _currentEngine.StopEngine();
+            IEngine previousEngine = _currentEngine;
 
-            yield return newEngine.StartEngine(_currentEngine);
+            if (previousEngine != null)
+                yield return previousEngine.StopEngine();
 
             _currentEngine = newEngine;
+
+            yield return newEngine.StartEngine(previousEngine);
         }
 
         void Start() {

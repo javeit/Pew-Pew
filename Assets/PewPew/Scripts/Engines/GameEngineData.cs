@@ -4,8 +4,8 @@ using UnityEngine;
 
 namespace RedTeam.PewPew {
 
-    [CreateAssetMenu(fileName = "TestEngineData", menuName = "RedTeam/PewPew/EngineData/TestEngineData")]
-    public class TestEngineData : EngineData {
+    [CreateAssetMenu(fileName = "GameEngineData", menuName = "RedTeam/PewPew/EngineData/GameEngineData")]
+    public class GameEngineData : EngineData {
 
         public CourseSegment startingSegment;
     }
