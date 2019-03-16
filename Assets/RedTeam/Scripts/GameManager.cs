@@ -8,8 +8,7 @@ namespace RedTeam {
     /// The GameManager is responsible for initializing certain generic systems and loading the first real scene of the game
     /// </summary>
     public class GameManager : MonoBehaviour {
-
-        public string mainMenuScene;
+        
         public TransitionManager transitionManager;
 
         public EngineData initialEngineData;

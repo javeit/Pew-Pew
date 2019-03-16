@@ -11,6 +11,8 @@ namespace RedTeam {
 
             if (data is GameEngineData)
                 generatedEngine = new GameEngine(data as GameEngineData);
+            else if (data is MainMenuEngineData)
+                generatedEngine = new MainMenuEngine(data as MainMenuEngineData);
             else
                 generatedEngine = null;
         }
