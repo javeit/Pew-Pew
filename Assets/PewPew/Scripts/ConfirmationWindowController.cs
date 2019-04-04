@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
@@ -15,36 +13,20 @@ namespace RedTeam.PewPew {
         public Button confirmButton;
         public Button cancelButton;
 
-        public void Show(Action confirmAction, Action cancelAction) {
+        public Text confirmationText;
 
-            // Confirm Button
-            {
-                confirmButton.onClick.RemoveAllListeners();
-                confirmButton.onClick.AddListener(() => confirmAction());
+        public void Show(string confirmationMessage, Action confirmAction, Action cancelAction) {
 
-                EventTrigger.Entry pointerEnterEvent = new EventTrigger.Entry();
+            confirmationText.text = confirmationMessage;
 
-                pointerEnterEvent.eventID = EventTriggerType.PointerEnter;
-                pointerEnterEvent.callback.AddListener((eventData) => selectionController.SelectButton(0));
+            confirmButton.onClick.RemoveAllListeners();
+            confirmButton.onClick.AddListener(() => confirmAction());
 
-                confirmButton.GetComponent<EventTrigger>().triggers.Add(pointerEnterEvent);
-            }
-
-            // Cancel Button
-            {
-                cancelButton.onClick.RemoveAllListeners();
-                cancelButton.onClick.AddListener(() => {
-                    cancelAction?.Invoke();
-                    Hide();
-                });
-
-                EventTrigger.Entry pointerEnterEvent = new EventTrigger.Entry();
-
-                pointerEnterEvent.eventID = EventTriggerType.PointerEnter;
-                pointerEnterEvent.callback.AddListener((eventData) => selectionController.SelectButton(1));
-
-                cancelButton.GetComponent<EventTrigger>().triggers.Add(pointerEnterEvent);
-            }
+            cancelButton.onClick.RemoveAllListeners();
+            cancelButton.onClick.AddListener(() => {
+                Hide();
+                cancelAction?.Invoke();
+            });
 
             promptWindow.SetActive(true);
 
@@ -53,6 +35,8 @@ namespace RedTeam.PewPew {
         }
 
         public void Hide() {
+
+            //Debug.Log("Hide confirmation window");
 
             promptWindow.SetActive(false);
 

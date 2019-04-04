@@ -11,7 +11,7 @@ namespace RedTeam {
         
         public TransitionManager transitionManager;
 
-        public EngineData initialEngineData;
+        public GameConfig config;
 
         IEngine _currentEngine;
 
@@ -45,7 +45,7 @@ namespace RedTeam {
 
         void Start() {
 
-            SetCurrentEngine(initialEngineData);
+            SetCurrentEngine(config.initialEngineData);
         }
 
         void Awake() {
@@ -57,6 +57,7 @@ namespace RedTeam {
             EventManager.AddRequest<GameManager>("GameManager", () => this);
             EventManager.AddRequest<TransitionManager>("TransitionManager", () => transitionManager);
             EventManager.AddRequest<IEngine>("CurrentEngine", () => _currentEngine);
+            EventManager.AddRequest<GameConfig>("GameConfig", () => config);
 
             DontDestroyOnLoad(gameObject);
         }

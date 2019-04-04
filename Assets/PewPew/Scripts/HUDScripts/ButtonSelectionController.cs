@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using System.Collections;
 
 public class ButtonSelectionController : MonoBehaviour {
 
@@ -9,23 +11,36 @@ public class ButtonSelectionController : MonoBehaviour {
     int _selectedIndex;
     bool _active;
 
+    Coroutine checkInputCoroutine;
+
     public void Init(Button[] buttons, int initialSelected = 0) {
 
         _buttons = buttons;
         _selectedIndex = initialSelected;
+
+        for(int i = 0; i < buttons.Length; i++) {
+
+            InitButton(_buttons[i], i);
+        }
     }
 
     public void Enable() {
 
         SelectButton(_selectedIndex);
 
-        _active = true;
         selectBox.gameObject.SetActive(true);
+
+        checkInputCoroutine = StartCoroutine(CheckInput());
     }
 
     public void Disable() {
 
-        _active = false;
+        if (checkInputCoroutine != null) {
+
+            StopCoroutine(checkInputCoroutine);
+            checkInputCoroutine = null;
+        }
+
         selectBox.gameObject.SetActive(false);
     }
 
@@ -41,29 +56,43 @@ public class ButtonSelectionController : MonoBehaviour {
         selectBox.anchoredPosition = Vector2.zero;
     }
 
-    void Update() {
+    void InitButton(Button button, int selectionIndex) {
 
-        if (!_active)
-            return;
+        EventTrigger.Entry pointerEnterEvent = new EventTrigger.Entry();
 
-        if (Input.GetKeyDown("down") || Input.GetKeyDown("right")) {
+        pointerEnterEvent.eventID = EventTriggerType.PointerEnter;
+        pointerEnterEvent.callback.AddListener((eventData) => SelectButton(selectionIndex));
 
-            _selectedIndex = (_selectedIndex + 1) % _buttons.Length;
+        button.GetComponent<EventTrigger>().triggers.Add(pointerEnterEvent);
+    }
 
-            SelectButton(_selectedIndex);
+    IEnumerator CheckInput() {
 
-        } else if (Input.GetKeyDown("up") || Input.GetKeyDown("left")) {
+        yield return null;
 
-            _selectedIndex--;
+        while (true) {
 
-            if (_selectedIndex < 0)
-                _selectedIndex = _buttons.Length - 1;
+            if (Input.GetKeyDown("down") || Input.GetKeyDown("right")) {
 
-            SelectButton(_selectedIndex);
+                _selectedIndex = (_selectedIndex + 1) % _buttons.Length;
 
-        } else if (Input.GetKeyDown("return")) {
+                SelectButton(_selectedIndex);
 
-            _buttons[_selectedIndex].onClick.Invoke();
+            } else if (Input.GetKeyDown("up") || Input.GetKeyDown("left")) {
+
+                _selectedIndex--;
+
+                if (_selectedIndex < 0)
+                    _selectedIndex = _buttons.Length - 1;
+
+                SelectButton(_selectedIndex);
+
+            } else if (Input.GetKeyDown("return")) {
+
+                _buttons[_selectedIndex].onClick.Invoke();
+            }
+
+            yield return null;
         }
     }
 }

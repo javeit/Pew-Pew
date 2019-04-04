@@ -9,6 +9,9 @@ namespace RedTeam.PewPew {
 
     public class PauseMenuController : GameEventListener {
 
+        const string RestartGameConfirmationText = "Are you sure you want to restart?";
+        const string QuitGameConfirmationText = "Are you sure you want to quit?";
+
         IEngine CurrentEngine {
             get {
                 return EventManager.Request<IEngine>("CurrentEngine");
@@ -55,14 +58,14 @@ namespace RedTeam.PewPew {
 
             DisableButtons();
 
-            confirmationWindow.Show(GameController.RestartGame, EnableButtons);
+            confirmationWindow.Show(RestartGameConfirmationText, GameController.RestartGame, EnableButtons);
         }
 
         void OpenQuitGameConfirmation() {
 
             DisableButtons();
 
-            confirmationWindow.Show(GameController.QuitGame, EnableButtons);
+            confirmationWindow.Show(QuitGameConfirmationText, GameController.QuitGame, EnableButtons);
         }
 
         void ResumeGame() {
@@ -70,25 +73,13 @@ namespace RedTeam.PewPew {
             CurrentEngine.ResumeGame();
         }
 
-        void InitButton(Button button, int selecionIndex, Action onClick) {
-
-            button.onClick.AddListener(() => onClick());
-
-            EventTrigger.Entry pointerEnterEvent = new EventTrigger.Entry();
-
-            pointerEnterEvent.eventID = EventTriggerType.PointerEnter;
-            pointerEnterEvent.callback.AddListener((eventData) => buttonSelect.SelectButton(selecionIndex));
-
-            button.GetComponent<EventTrigger>().triggers.Add(pointerEnterEvent);
-        }
-
         protected override void OnInitGame() {
 
             base.OnInitGame();
 
-            InitButton(resumeGameButton, 0, ResumeGame);
-            InitButton(restartGameButton, 1, OpenRestartGameConfirmation);
-            InitButton(quitGameButton, 2, OpenQuitGameConfirmation);
+            resumeGameButton.onClick.AddListener(ResumeGame);
+            restartGameButton.onClick.AddListener(OpenRestartGameConfirmation);
+            quitGameButton.onClick.AddListener(OpenQuitGameConfirmation);
 
             buttonSelect.Init(new Button[] { resumeGameButton, restartGameButton, quitGameButton });
         }

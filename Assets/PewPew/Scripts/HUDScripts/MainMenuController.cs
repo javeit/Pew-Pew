@@ -1,42 +1,99 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System;
 using UnityEngine;
-using UnityEngine.SceneManagement;
+using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 namespace RedTeam.PewPew {
 
-    public class MainMenuController : MonoBehaviour {
+    public class MainMenuController : GameEventListener {
 
-        public string shipSelectScene = "Ship Select";
-        public string learnMoreScene = "Learn More";
-        public string aboutScene = "About";
-        public string optionsScene = "Options";
+        const string QuitGameConfirmationText = "Are you sure you want to quit?";
 
-        TransitionManager _transitionManager;
+        PewPewGameConfig _config;
 
-        TransitionManager TransitionManager {
+        PewPewGameConfig Config {
             get {
-                if (_transitionManager == null)
-                    _transitionManager = EventManager.Request<TransitionManager>("TransitionManager");
+                if (_config == null)
+                    _config = (PewPewGameConfig)EventManager.Request<GameConfig>("GameConfig");
 
-                return _transitionManager;
+                return _config;
             }
         }
 
-        public void StartGame() {
-            StartCoroutine(TransitionManager.Transition(SceneManager.GetActiveScene().name, shipSelectScene));
+        GameManager _gameManager;
+
+        GameManager GameManager {
+            get {
+                if (_gameManager == null)
+                    _gameManager = EventManager.Request<GameManager>("GameManager");
+
+                return _gameManager;
+            }
         }
 
-        public void LearnMore() {
-            StartCoroutine(TransitionManager.Transition(SceneManager.GetActiveScene().name, learnMoreScene));
+        public ConfirmationWindowController confirmationWindow;
+        public ButtonSelectionController buttonSelect;
+
+        public Button startGameButton;
+        public Button learnMoreButton;
+        public Button optionsButton;
+        public Button aboutButton;
+
+        void StartGame() {
+
+            GameManager.SetCurrentEngine(Config.testGameEngineData);
+        }
+        
+        void LearnMore() {
+            //StartCoroutine(TransitionManager.Transition(SceneManager.GetActiveScene().name, learnMoreScene));
+        }
+        
+        void About() {
+            //StartCoroutine(TransitionManager.Transition(SceneManager.GetActiveScene().name, aboutScene));
+        }
+        
+        void Options() {
+            //StartCoroutine(TransitionManager.Transition(SceneManager.GetActiveScene().name, optionsScene));
         }
 
-        public void About() {
-            StartCoroutine(TransitionManager.Transition(SceneManager.GetActiveScene().name, aboutScene));
+        void DisableButtons() {
+
+            startGameButton.enabled = false;
+            learnMoreButton.enabled = false;
+            optionsButton.enabled = false;
+            aboutButton.enabled = false;
+
+            buttonSelect.Disable();
         }
 
-        public void Options() {
-            StartCoroutine(TransitionManager.Transition(SceneManager.GetActiveScene().name, optionsScene));
+        void EnableButtons() {
+
+            startGameButton.enabled = true;
+            learnMoreButton.enabled = true;
+            optionsButton.enabled = true;
+            aboutButton.enabled = true;
+
+            buttonSelect.Enable();
+        }
+
+        protected override void OnInitGame() {
+
+            base.OnInitGame();
+
+            DisableButtons();
+
+            startGameButton.onClick.AddListener(StartGame);
+            startGameButton.gameObject.SetActive(true);
+
+            learnMoreButton.gameObject.SetActive(false);
+
+            optionsButton.gameObject.SetActive(false);
+
+            aboutButton.gameObject.SetActive(false);
+
+            buttonSelect.Init(new Button[] { startGameButton });
+
+            EnableButtons();
         }
     }
 }
