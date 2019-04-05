@@ -21,11 +21,11 @@ namespace RedTeam {
         /// first loading an loading scene, using an overlay to cover when the loading scene is loaded in and out.
         /// </summary>
         /// <param name="toSceneName">Scene name.</param>
-        public IEnumerator Transition(string fromSceneName, string toSceneName) {
+        public IEnumerator Transition(string fromSceneName, string toSceneName, Action initScene = null) {
 
             yield return BeginTransition(fromSceneName);
 
-            yield return EndTransition(toSceneName);
+            yield return EndTransition(toSceneName, initScene);
         }
 
         public IEnumerator BeginTransition(string fromSceneName = null) {
@@ -42,13 +42,18 @@ namespace RedTeam {
                 yield return UnloadScene(fromSceneName, (progress) => EventManager.TriggerBroadcast<float>("LoadingProgress", progress / 2f));
         }
 
-        public IEnumerator EndTransition(string toSceneName) {
+        public IEnumerator EndTransition(string toSceneName, Action initScene = null) {
 
             yield return LoadScene(toSceneName, (progress) => EventManager.TriggerBroadcast<float>("LoadingProgress", 0.5f + progress / 2f));
 
             yield return FadeOut(1f, Color.black);
 
             yield return UnloadScene(loadingScene);
+
+            yield return null;
+
+            if (initScene != null)
+                initScene.Invoke();
 
             yield return FadeIn(1f, Color.black);
         }
