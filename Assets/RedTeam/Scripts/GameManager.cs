@@ -10,6 +10,7 @@ namespace RedTeam {
     public class GameManager : MonoBehaviour {
         
         public TransitionManager transitionManager;
+        public SoundManager soundManager;
 
         public GameConfig config;
 
@@ -49,13 +50,14 @@ namespace RedTeam {
         }
 
         void Awake() {
-            
+
             EventManager.Init();
 
             _engineFactory = new EngineFactory();
 
             EventManager.AddRequest<GameManager>("GameManager", () => this);
             EventManager.AddRequest<TransitionManager>("TransitionManager", () => transitionManager);
+            EventManager.AddRequest<SoundManager>("SoundManager", () => soundManager);
             EventManager.AddRequest<IEngine>("CurrentEngine", () => _currentEngine);
             EventManager.AddRequest<GameConfig>("GameConfig", () => config);
 

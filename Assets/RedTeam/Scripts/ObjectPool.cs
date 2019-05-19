@@ -1,20 +1,27 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 namespace RedTeam {
 
-    public class ObjectPool<T> : MonoBehaviour where T : MonoBehaviour {
+    /// <summary>
+    /// Maintains a pool of game objects
+    /// </summary>
+    public class ObjectPool : MonoBehaviour {
 
-        public T original;
+        public GameObject original;
         public int initialPoolSize;
 
-        List<T> _pooledObjects;
-        List<T> _usedObjects;
+        List<GameObject> _pooledObjects;
+        List<GameObject> _usedObjects;
 
-        public T GetPooledObject() {
+        /// <summary>
+        /// Returns a pooled object of type <see cref="T"/> if available,
+        /// otherwise, returns a new object of type <see cref="T"/>
+        /// </summary>
+        /// <returns>an object of type <see cref="T"/></returns>
+        public GameObject GetPooledObject() {
 
-            T poolableObject;
+            GameObject poolableObject;
 
             if (_pooledObjects.Count > 0) {
 
@@ -23,11 +30,12 @@ namespace RedTeam {
 
             } else if(original != null) {
 
-                poolableObject = Instantiate<T>(original, transform);
+                poolableObject = Instantiate(original, transform);
 
             } else {
 
                 poolableObject = null;
+                Debug.LogError("Pooled object could not be created because the original template is null");
             }
 
             _usedObjects.Add(poolableObject);
@@ -35,30 +43,34 @@ namespace RedTeam {
             return poolableObject;
         }
 
-        public void ReturnToPool(T pooledObject) {
+        /// <summary>
+        /// Returns a poolable object to the pool for use later
+        /// </summary>
+        /// <param name="poolableObject"></param>
+        public void ReturnToPool(GameObject poolableObject) {
 
-            if (pooledObject == null)
+            if (poolableObject == null)
                 return;
 
-            _pooledObjects.Add(pooledObject);
-            _usedObjects.Remove(pooledObject);
+            _pooledObjects.Add(poolableObject);
+            _usedObjects.Remove(poolableObject);
 
-            pooledObject.gameObject.SetActive(false);
-            pooledObject.transform.SetParent(transform);
+            poolableObject.SetActive(false);
+            poolableObject.transform.SetParent(transform);
         }
 
         void Awake() {
 
-            _pooledObjects = new List<T>();
-            _usedObjects = new List<T>();
+            _pooledObjects = new List<GameObject>();
+            _usedObjects = new List<GameObject>();
 
             if (original != null) {
 
-                T newPoolableObject;
+                GameObject newPoolableObject;
 
                 for (int i = 0; i < initialPoolSize; i++) {
 
-                    newPoolableObject = Instantiate<T>(original, transform);
+                    newPoolableObject = Instantiate(original, transform);
                     newPoolableObject.gameObject.SetActive(false);
 
                     _pooledObjects.Add(newPoolableObject);
